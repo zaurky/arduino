@@ -5,17 +5,32 @@ Sensor::Sensor() {
 }
 
 
-String Sensor::get_name(long sensor_id) {
+int Sensor::get_uuid(long sensor_id) {
     switch (sensor_id) {
         case sensor_door_1:
-            return "entree";
+            return 0;
         case sensor_door_4:
-            return "test";
+            return 1;
     }
-    return "";
+    return -1;
 }
 
 
-boolean Sensor::know(long sensor_id) {
-    return get_name(sensor_id).length() != 0;
+boolean Sensor::know(int uuid) {
+    return uuid != -1;
+}
+
+
+String Sensor::get_name(int uuid) {
+    if (!know(uuid)) {return "";}
+    return _names[uuid];
+}
+
+
+boolean Sensor::debounce(int uuid) {
+    if ((_last_times[uuid] == 0) || ((millis() - _last_times[uuid]) > debounceDelay)) {
+        _last_times[uuid] = millis();
+        return true;
+    }
+    return false;
 }
