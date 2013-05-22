@@ -24,7 +24,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(sensor_door_1 == sensor_door_4);
   if (mySwitch.available()) {
     long value = mySwitch.getReceivedValue();
 
