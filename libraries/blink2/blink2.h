@@ -7,20 +7,25 @@
     #include "WProgram.h"
 #endif
 
+#define blink_error 5
+#define blink_unknown 3
+#define blink_ok 1
+
+
 class Blink2 {
-  public:
-    Blink2(int led_id, int duration = 1000);
-    boolean blink(int times);
-    boolean check();
-  private:
-    int _led_id;
-    int _led_state;
-    int _duration;
-    int _count;
-    int _rest;
-    int _delta;
-    int _active;
-    unsigned long _start;
+    public:
+        Blink2(int led_id, int duration = 1000);
+        boolean blink(int times);
+        boolean check();
+      private:
+        int _led_id;
+        int _led_state;
+        int _duration;
+        int _count;
+        int _rest;
+        int _delta;
+        int _active;
+        unsigned long _start;
 };
 
 #endif
