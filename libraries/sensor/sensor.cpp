@@ -7,12 +7,10 @@ Sensor::Sensor() {
 
 String Sensor::get_name(long sensor_id) {
     switch (sensor_id) {
-        case 21817:
+        case sensor_door_1:
             return "entree";
-        case 9590072:
+        case sensor_door_4:
             return "test";
-        default:
-            break;
     }
     return "";
 }
