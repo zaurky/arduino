@@ -15,7 +15,10 @@ void Sensor::work(long sensor_id) {
         Serial.println(sensor_id);
     } else if (debounce(uuid)) {
         _msg_led->blink(blink_ok);
-        Serial.print("Door opened : ");
+        if type(uuid) == sensor_type_door:
+            Serial.print("Door opened : ");
+        else if type(uuid) == sensor_type_zone:
+            Serial.print("Someone in zone : ");
         Serial.println(get_name(uuid));
     }
 }
@@ -41,6 +44,11 @@ int Sensor::get_uuid(long sensor_id) {
 
 boolean Sensor::know(int uuid) {
     return uuid != -1;
+}
+
+
+short Sensor::type(int uuid) {
+    return _sensor_type[uuid];
 }
 
 

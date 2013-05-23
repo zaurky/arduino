@@ -17,19 +17,27 @@ class Blink2;
 
 #define debounceDelay 1500
 
+#define sensor_type_door 0
+#define sensor_type_zone 1
+
 class Sensor {
     public:
         Sensor(int led_id);
         void work(long sensor_id);
         void check();
         int get_uuid(long sensor_id);
+        short type(int uuid);
         boolean know(int uuid);
         String get_name(int uuid);
         boolean debounce(int uuid);
     private:
         Blink2* _msg_led;
-        unsigned long _last_times[2] = {0,0};
-        String _names[3] = {"entree", "salon NO", "salon"};
+
+        // all the list that follow must have the same number of elements
+        // as sensors uuid declared.
+        unsigned long _last_times[3] = {0,0,0};
+        String _names[3] = {"entree", "salon N.O", "salon"};
+        short _sensor_type[3] = {sensor_type_door, sensor_type_door, sensor_type_zone};
 };
 
 #endif
