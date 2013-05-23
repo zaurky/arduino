@@ -14,4 +14,5 @@ if __name__ == '__main__':
     console = serial.Serial(args.device, args.baud)
 
     while True:
-        print datetime.now(), console.readline()
+        line = console.readline().rstrip('\n')
+        print datetime.now(), line
