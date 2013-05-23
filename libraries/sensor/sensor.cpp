@@ -6,6 +6,11 @@ Sensor::Sensor(int led_id) {
 }
 
 
+void Sensor::init() {
+    Serial.begin(9600);
+}
+
+
 void Sensor::work(long sensor_id) {
     int uuid = get_uuid(sensor_id);
 

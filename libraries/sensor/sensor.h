@@ -23,6 +23,7 @@ class Blink2;
 class Sensor {
     public:
         Sensor(int led_id);
+        void init();
         void work(long sensor_id);
         void check();
         int get_uuid(long sensor_id);

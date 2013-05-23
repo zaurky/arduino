@@ -18,9 +18,9 @@ Sensor sensor = Sensor(msg_id);
 
 
 void setup() {
-  Serial.begin(9600);
-  mySwitch.enableReceive(0);  // Receiver on inerrupt 0 => that is pin #3 on leonardo
-  alive.blink(5);  // blink 5 times at startup
+    mySwitch.enableReceive(0);  // Receiver on inerrupt 0 => that is pin #3 on leonardo
+    sensor.init();
+    alive.blink(5);  // blink 5 times at startup
 }
 
 void loop() {
