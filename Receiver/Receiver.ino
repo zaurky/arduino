@@ -10,15 +10,11 @@ get 32 bits values.
 
 int msg_id = 2;
 int alive_id = 4;
-int blink_error = 5;
-int blink_unknown = 3;
-int blink_ok = 1;
 
 
 RCSwitch mySwitch = RCSwitch();
-Blink2 msg_led = Blink2(msg_id);
 Blink2 alive = Blink2(alive_id);
-Sensor sensor = Sensor();
+Sensor sensor = Sensor(msg_id);
 
 
 void setup() {
@@ -30,21 +26,11 @@ void setup() {
 void loop() {
   if (mySwitch.available()) {
     long value = mySwitch.getReceivedValue();
-    int uuid = sensor.get_uuid(value);
-
-    if (!sensor.know(uuid)) {
-      msg_led.blink(blink_unknown);
-      Serial.print("Received : ");
-      Serial.println(value);
-    } else if (sensor.debounce(uui)) {
-      msg_led.blink(blink_ok);
-      Serial.print("Door opened : ");
-      Serial.println(sensor.get_name(uuid));
-    }
+    sensor.work(value);
     mySwitch.resetAvailable();
   }
 
-  msg_led.check();
+  sensor.check();
 
   if (alive.check()) {
     alive.blink(2);

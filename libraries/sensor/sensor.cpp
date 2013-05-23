@@ -1,7 +1,28 @@
 #include "sensor.h"
 
 
-Sensor::Sensor() {
+Sensor::Sensor(int led_id) {
+    _msg_led = new Blink2(led_id, 1000);
+}
+
+
+void Sensor::work(long sensor_id) {
+    int uuid = get_uuid(sensor_id);
+
+    if (!know(uuid)) {
+        _msg_led->blink(blink_unknown);
+        Serial.print("Received : ");
+        Serial.println(sensor_id);
+    } else if (debounce(uuid)) {
+        _msg_led->blink(blink_ok);
+        Serial.print("Door opened : ");
+        Serial.println(get_name(uuid));
+    }
+}
+
+
+void Sensor::check() {
+    _msg_led->check();
 }
 
 
@@ -11,6 +32,8 @@ int Sensor::get_uuid(long sensor_id) {
             return 0;
         case sensor_door_4:
             return 1;
+        case sensor_move_1:
+            return 2;
     }
     return -1;
 }
