@@ -24,15 +24,15 @@ void setup() {
 }
 
 void loop() {
-  if (mySwitch.available()) {
-    long value = mySwitch.getReceivedValue();
-    sensor.work(value);
-    mySwitch.resetAvailable();
-  }
+    if (mySwitch.available()) {
+        long value = mySwitch.getReceivedValue();
+        sensor.work(value);
+        mySwitch.resetAvailable();
+    }
 
-  sensor.check();
+    sensor.check();
 
-  if (alive.check()) {
-    alive.blink(2);
-  }
+    if (alive.check()) {
+        alive.blink(2);
+    }
 }
