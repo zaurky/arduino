@@ -14,6 +14,7 @@ class Blink2;
 #define sensor_door_1 21816
 #define sensor_door_4 9590072
 #define sensor_move_1 4273500
+#define key_1_deactivate 3394828
 
 #define debounceDelay 1500
 
