@@ -4,13 +4,13 @@
 
 Blink2::Blink2(int led_id, int duration) {
     _active = false;
-    _led_id = led_id; 
+    _led_id = led_id;
     _led_state = LOW;
     _duration = duration;
     _delta = 0;
     pinMode(_led_id, OUTPUT);
     digitalWrite(_led_id, _led_state);
-}   
+}
 
 
 boolean Blink2::blink(int times) {
@@ -30,10 +30,10 @@ boolean Blink2::check() {
         return false;
     }
     unsigned long currentMillis = millis();
- 
+
     if (currentMillis - _start >= _delta) {
         // save the last time you blinked the LED
-        _start = currentMillis;  
+        _start = currentMillis;
 
         // if the LED is off turn it on and vice-versa:
         if (_led_state == LOW) {
@@ -52,4 +52,19 @@ boolean Blink2::check() {
         }
     }
     return false;
+}
+
+
+/**
+ * Alive object : blink a led (led_id) every second.
+ */
+boolean Alive::init() {
+    blink(5);
+}
+
+
+boolean Alive::check() {
+    if (Blink2::check()) {
+        blink(1);
+    }
 }

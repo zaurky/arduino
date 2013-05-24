@@ -28,4 +28,12 @@ class Blink2 {
         unsigned long _start;
 };
 
+
+class Alive : public Blink2 {
+    public:
+        Alive(int led_id) : Blink2(led_id) {};
+        boolean init();
+        boolean check();
+};
+
 #endif
