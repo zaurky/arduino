@@ -8,31 +8,33 @@ pay attention to the size of int and long. Here value goes in a long, because we
 get 32 bits values.
 */
 
+
+// arduino pin where things are plugged
 int msg_id = 2;
 int alive_id = 4;
+int rc_irq = 0;  // Receiver on inerrupt 0 => that is pin #3 on leonardo
 
 
+// Objects init
 RCSwitch mySwitch = RCSwitch();
-Blink2 alive = Blink2(alive_id);
+Alive alive = Alive(alive_id);
 Sensor sensor = Sensor(msg_id);
 
 
 void setup() {
-    mySwitch.enableReceive(0);  // Receiver on inerrupt 0 => that is pin #3 on leonardo
+    mySwitch.enableReceive(rc_irq);
     sensor.init();
-    alive.blink(5);  // blink 5 times at startup
+    alive.init();
 }
+
 
 void loop() {
     if (mySwitch.available()) {
-        long value = mySwitch.getReceivedValue();
-        sensor.work(value);
+        sensor.work(mySwitch.getReceivedValue());
         mySwitch.resetAvailable();
     }
 
+    // do checks
     sensor.check();
-
-    if (alive.check()) {
-        alive.blink(2);
-    }
+    alive.check();
 }
