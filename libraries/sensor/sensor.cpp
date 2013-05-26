@@ -39,10 +39,20 @@ int Sensor::get_uuid(long sensor_id) {
     switch (sensor_id) {
         case sensor_door_1:
             return 0;
-        case sensor_door_4:
+        case sensor_door_2:
             return 1;
-        case sensor_move_1:
+        case sensor_door_3:
             return 2;
+        case sensor_door_4:
+            return 3;
+        case sensor_door_5:
+            return 4;
+        case sensor_move_1:
+            return 5;
+        case sensor_move_2:
+            return 6;
+        case sensor_move_3:
+            return 7;
     }
     return -1;
 }

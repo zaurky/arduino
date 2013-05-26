@@ -11,9 +11,14 @@
 
 class Blink2;
 
-#define sensor_door_1 21816
-#define sensor_door_4 9590072
+#define sensor_door_1 10528568
+#define sensor_door_2 5160504
+#define sensor_door_3 9590072
+#define sensor_door_4 1068344
+#define sensor_door_5 16762552
 #define sensor_move_1 4273500
+#define sensor_move_2 5751900
+#define sensor_move_3 3626332
 #define key_1_deactivate 3394828
 
 #define debounceDelay 1500
@@ -37,9 +42,16 @@ class Sensor {
 
         // all the list that follow must have the same number of elements
         // as sensors uuid declared.
-        unsigned long _last_times[3] = {0,0,0};
-        String _names[3] = {"entree", "salon N.O", "salon"};
-        short _sensor_type[3] = {sensor_type_door, sensor_type_door, sensor_type_zone};
+        unsigned long _last_times[8] = {0,0,0,0,0,0,0,0};
+        String _names[8] = {
+            "entree", "salon N.E", "salon N.O", "salon O.N", "salon O.S",
+            "salon", "zone 2", "zone 3"
+        };
+        short _sensor_type[8] = {
+            sensor_type_door, sensor_type_door, sensor_type_door,
+            sensor_type_door, sensor_type_door,
+            sensor_type_zone, sensor_type_zone, sensor_type_zone
+        };
 };
 
 #endif
