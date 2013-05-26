@@ -20,7 +20,7 @@ boolean Blink2::blink(int times) {
     _active = true;
     _start = millis();
     _count = times;
-    _delta = _duration / times;
+    _delta = _duration / (2 * times);
     return true;
 }
 
@@ -66,5 +66,35 @@ boolean Alive::init() {
 boolean Alive::check() {
     if (Blink2::check()) {
         blink(1);
+    }
+}
+
+
+void Alive::order(char* command) {
+    Serial.println(command);
+}
+
+
+/**
+ * LedInit object : show that all leds work
+ */
+LedInit::LedInit(int* leds, int len, int delta_a, int delta_b) {
+    _len = len;
+    _leds = leds;
+    _delta_a = delta_a;
+    _delta_b = delta_b;
+}
+
+
+void LedInit::init() {
+    for (int id = 0; id < _len; id ++) {
+        pinMode(_leds[id], OUTPUT);
+        digitalWrite(_leds[id], HIGH);
+        delay(_delta_a);
+    }
+    delay(_delta_b);
+    for (int id = 0; id < _len; id ++) {
+        digitalWrite(_leds[id], LOW);
+        delay(_delta_a);
     }
 }

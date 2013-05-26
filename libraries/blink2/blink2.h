@@ -34,6 +34,19 @@ class Alive : public Blink2 {
         Alive(int led_id) : Blink2(led_id) {};
         boolean init();
         boolean check();
+        void order(char* command);
+};
+
+
+class LedInit {
+    public:
+        LedInit(int* leds, int len, int delta_a=100, int delta_b=500);
+        void init();
+    private:
+        int _len;
+        int* _leds;
+        int _delta_a;
+        int _delta_b;
 };
 
 #endif
