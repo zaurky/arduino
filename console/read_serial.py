@@ -3,6 +3,7 @@
 import argparse
 from datetime import datetime
 import serial
+import time
 
 
 if __name__ == '__main__':
@@ -14,5 +15,10 @@ if __name__ == '__main__':
     console = serial.Serial(args.device, args.baud)
 
     while True:
-        line = console.readline().rstrip('\n')
-        print datetime.now(), line
+        try:
+            line = console.readline().rstrip('\n')
+            print datetime.now(), line
+        except serial.serialutil.SerialException:
+            print "deconnect"
+            time.sleep(30);
+            console = serial.Serial(args.device, args.baud)
