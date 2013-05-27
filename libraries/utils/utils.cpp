@@ -17,3 +17,17 @@ float sensorTemperature(int pin) {
     float temperature = (voltage - 0.5) * 100;
     return temperature;
 }
+
+
+// read from serial
+void readSerialString(char* serInString) {
+    int sb;
+    int serInIndx = 0;
+    if (Serial.available()) {
+        while (Serial.available()){
+            sb = Serial.read();
+            serInString[serInIndx] = sb;
+            serInIndx++;
+        }
+    }
+}
