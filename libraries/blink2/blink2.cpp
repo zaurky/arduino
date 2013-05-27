@@ -2,14 +2,31 @@
 #include "blink2.h"
 
 
+Led::Led(int led_id) {
+    _led_id = led_id;
+    state = LOW;
+    pinMode(_led_id, OUTPUT);
+    digitalWrite(_led_id, state);
+}
+
+
+void Led::on() {
+    state = HIGH;
+    digitalWrite(_led_id, state);
+}
+
+
+void Led::off() {
+    state = LOW;
+    digitalWrite(_led_id, state);
+}
+
+
 Blink2::Blink2(int led_id, int duration) {
     _active = false;
-    _led_id = led_id;
-    _led_state = LOW;
+    _led = new Led(led_id);
     _duration = duration;
     _delta = 0;
-    pinMode(_led_id, OUTPUT);
-    digitalWrite(_led_id, _led_state);
 }
 
 
@@ -36,15 +53,12 @@ boolean Blink2::check() {
         _start = currentMillis;
 
         // if the LED is off turn it on and vice-versa:
-        if (_led_state == LOW) {
-            _led_state = HIGH;
+        if (_led->state == LOW) {
+            _led->on();
         } else {
-            _led_state = LOW;
+            _led->off();
     	    _count--;
         }
-
-        // set the LED with the ledState of the variable:
-        digitalWrite(_led_id, _led_state);
 
         if (_count == 0) {
             _active = false;

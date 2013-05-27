@@ -12,14 +12,24 @@
 #define blink_ok 1
 
 
+class Led {
+    public:
+        Led(int led_id);
+        void on();
+        void off();
+        int state;
+    private:
+        int _led_id;
+};
+
+
 class Blink2 {
     public:
         Blink2(int led_id, int duration = 1000);
         boolean blink(int times);
         boolean check();
       private:
-        int _led_id;
-        int _led_state;
+        Led* _led;
         int _duration;
         int _count;
         int _rest;
