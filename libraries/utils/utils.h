@@ -8,5 +8,6 @@
 #endif
 
 int sensorPercent(int pin);
+float sensorTemperature(int pin);
 
 #endif

@@ -7,3 +7,13 @@ int sensorPercent(int pin) {
     int val = analogRead(pin); // read the sensor (ranges from 0 to 1023)
     return map(val, 0, 1023, 0, 100); // percent will range from 0 to 100.
 }
+
+
+// convert the analog read into a temperature
+float sensorTemperature(int pin) {
+    int read = analogRead(pin);
+    float voltage = read * 5.0;
+    voltage /= 1024.0;
+    float temperature = (voltage - 0.5) * 100;
+    return temperature;
+}
