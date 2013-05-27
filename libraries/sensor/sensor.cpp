@@ -11,8 +11,9 @@ void Sensor::init() {
 }
 
 
-void Sensor::work(long sensor_id) {
+int Sensor::work(long sensor_id) {
     int uuid = get_uuid(sensor_id);
+    int ret = -1;
 
     if (!know(uuid)) {
         _msg_led->blink(blink_unknown);
@@ -20,13 +21,18 @@ void Sensor::work(long sensor_id) {
         Serial.println(sensor_id);
     } else if (debounce(uuid)) {
         _msg_led->blink(blink_ok);
+        ret = type(uuid);
         if (type(uuid) == sensor_type_door) {
             Serial.print("Door opened : ");
         } else if (type(uuid) == sensor_type_zone) {
             Serial.print("Someone in zone : ");
+        } else if (type(uuid) == sensor_type_key_on
+                || type(uuid) == sensor_type_key_off) {
+            Serial.print("Key pressed : ");
         }
         Serial.println(get_name(uuid));
     }
+    return ret;
 }
 
 
@@ -53,6 +59,10 @@ int Sensor::get_uuid(long sensor_id) {
             return 6;
         case sensor_move_3:
             return 7;
+        case key_1_activate:
+            return 8;
+        case key_1_deactivate:
+            return 9;
     }
     return -1;
 }
