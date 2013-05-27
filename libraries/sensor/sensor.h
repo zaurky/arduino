@@ -34,7 +34,7 @@ class Blink2;
 
 class Sensor {
     public:
-        Sensor(int led_id);
+        Sensor(int led_id, int armed_id);
         void init();
         int work(long sensor_id);
         void check();
@@ -45,6 +45,7 @@ class Sensor {
         boolean debounce(int uuid);
     private:
         Blink2* _msg_led;
+        Led* _armed_led;
 
         // all the list that follow must have the same number of elements
         // as sensors uuid declared.

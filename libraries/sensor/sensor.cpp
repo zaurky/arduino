@@ -1,8 +1,9 @@
 #include "sensor.h"
 
 
-Sensor::Sensor(int led_id) {
+Sensor::Sensor(int led_id, int armed_id) {
     _msg_led = new Blink2(led_id, 1000);
+    _armed_led = new Led(armed_id);
 }
 
 
@@ -26,9 +27,12 @@ int Sensor::work(long sensor_id) {
             Serial.print("Door opened : ");
         } else if (type(uuid) == sensor_type_zone) {
             Serial.print("Someone in zone : ");
-        } else if (type(uuid) == sensor_type_key_on
-                || type(uuid) == sensor_type_key_off) {
+        } else if (type(uuid) == sensor_type_key_on) {
             Serial.print("Key pressed : ");
+            _armed_led->on();
+        } else if (type(uuid) == sensor_type_key_off) {
+            Serial.print("Key pressed : ");
+            _armed_led->off();
         }
         Serial.println(get_name(uuid));
     }
