@@ -11,62 +11,40 @@ get 32 bits values.
 
 // arduino pin where things are plugged (need at least 3 leds)
 int leds[3] = {2, 4, 5};
-int msg_id = leds[1];
-int alive_id = leds[0];
-int armed_id = leds[2];
-int rc_irq = 0;  // Receiver on inerrupt 0 => that is pin #3 on leonardo
+
+// Receiver on inerrupt 0 => that is pin #3 on leonardo
+int rc_irq = 0;
 
 
-// Objects init
+// Objects instanciation
 RCSwitch mySwitch = RCSwitch();
-Alive alive = Alive(alive_id);
-Sensor sensor = Sensor(msg_id);
-// Blink2 armed = Blink2(armed_id);
+Alive alive = Alive(leds[0]);
+Sensor sensor = Sensor(leds[1], leds[2]);
 
 
 void setup() {
-    mySwitch.enableReceive(rc_irq);
     LedInit init = LedInit(leds, 3);
+
+    mySwitch.enableReceive(rc_irq);
     init.init();
     sensor.init();
     alive.init();
 }
 
 
-void readSerialString(char* serInString) {
-    int sb;
-    int serInIndx = 0;
-    if (Serial.available()) {
-        while (Serial.available()){
-            sb = Serial.read();
-            serInString[serInIndx] = sb;
-            serInIndx++;
-        }
-    }
-}
-
-
 void loop() {
-    int sensor_type;
     // if something comes from the RF sensor
     if (mySwitch.available()) {
-        sensor_type = sensor.work(mySwitch.getReceivedValue());
+        sensor.work(mySwitch.getReceivedValue());
         mySwitch.resetAvailable();
-        if (sensor_type == sensor_type_key_on) {
-            digitalWrite(armed_id, HIGH);
-            Serial.println("Activating system");
-        } else if (sensor_type == sensor_type_key_off) {
-            digitalWrite(armed_id, LOW);
-            Serial.println("Deactivating system");
-        }
     }
 
     // if something comes from the serial
-    if (Serial.available() > 0) {
+    /*if (Serial.available() > 0) {
         char serInString[50];
         readSerialString(serInString);
         alive.order(serInString);
-    }
+    }*/
 
     // do checks
     sensor.check();
