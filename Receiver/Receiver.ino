@@ -1,6 +1,5 @@
-#include <RCSwitch.h>
 #include <blink2.h>
-#include <sensor.h>
+#include <alarm.h>
 
 /*
 This code is done for Leonardo arduino board, if you plan to use it somewhere else,
@@ -17,28 +16,20 @@ int rc_irq = 0;
 
 
 // Objects instanciation
-RCSwitch mySwitch = RCSwitch();
 Alive alive = Alive(leds[0]);
-Sensor sensor = Sensor(leds[1], leds[2]);
+Alarm alarm = Alarm(leds[1], leds[2]);
 
 
 void setup() {
     LedInit init = LedInit(leds, 3);
-
-    mySwitch.enableReceive(rc_irq);
     init.init();
-    sensor.init();
+
+    alarm.init(rc_irq);
     alive.init();
 }
 
 
 void loop() {
-    // if something comes from the RF sensor
-    if (mySwitch.available()) {
-        sensor.work(mySwitch.getReceivedValue());
-        mySwitch.resetAvailable();
-    }
-
     // if something comes from the serial
     /*if (Serial.available() > 0) {
         char serInString[50];
@@ -47,7 +38,7 @@ void loop() {
     }*/
 
     // do checks
-    sensor.check();
+    alarm.check();
     alive.check();
 
     // wait between loops
