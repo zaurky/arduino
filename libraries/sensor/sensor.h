@@ -32,7 +32,6 @@ class Blink2;
 #define key_2_other 13972272
 
 #define debounceDelay 1500
-#define dereadedDealay 30000
 
 #define sensor_type_door 0
 #define sensor_type_zone 1
