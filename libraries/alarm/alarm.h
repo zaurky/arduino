@@ -33,6 +33,7 @@ class Alarm {
         Led* _armed_led;
         Alive* _alive;
         unsigned long _defeared = 0;
+        int _leds[3];
 };
 
 #endif

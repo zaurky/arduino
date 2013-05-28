@@ -6,11 +6,12 @@ Alarm::Alarm(int alive_id, int sensor_led_id, int armed_id) {
     _sensor = new Sensor(sensor_led_id);
     _armed_led = new Led(armed_id);
     _alive = new Alive(alive_id);
+    _leds = {alive_id, sensor_led_id, armed_id};
 }
 
 
 void Alarm::init(int rc_irq) {
-    LedInit init = LedInit(leds, 3);
+    LedInit init = LedInit(_leds, 3);
     init.init();
 
     mySwitch->enableReceive(rc_irq);
