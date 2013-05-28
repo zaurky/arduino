@@ -67,6 +67,18 @@ int Sensor::get_uuid(long sensor_id) {
             return 8;
         case key_1_deactivate:
             return 9;
+        case key_1_defeared:
+            return 10;
+        case key_1_other:
+            return 11;
+        case key_2_activate:
+            return 12;
+        case key_2_deactivate:
+            return 13;
+        case key_2_defeared:
+            return 14;
+        case key_2_other:
+            return 15;
     }
     return -1;
 }
