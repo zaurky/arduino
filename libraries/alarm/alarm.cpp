@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "alarm.h"
 
 
@@ -6,7 +7,7 @@ Alarm::Alarm(int alive_id, int sensor_led_id, int armed_id) {
     _sensor = new Sensor(sensor_led_id);
     _armed_led = new Led(armed_id);
     _alive = new Alive(alive_id);
-    _leds = {alive_id, sensor_led_id, armed_id};
+    _leds = new int[3]{alive_id, sensor_led_id, armed_id};
 }
 
 
@@ -21,7 +22,7 @@ void Alarm::init(int rc_irq) {
 
 
 int Alarm::work(long sensor_id) {
-    int uuid = get_uuid(sensor_id);
+    int uuid = _sensor->get_uuid(sensor_id);
     int action = _sensor->work(sensor_id);
 
     if (action == action_armed) {
@@ -69,7 +70,7 @@ void Alarm::defeared_arm() {
 }
 
 
-void Alarm::defeared() {_defeared = currentMillis = millis();}
+void Alarm::defeared() {_defeared = millis();}
 
 
 boolean Alarm::armed() {return _armed_led->state == HIGH;}
