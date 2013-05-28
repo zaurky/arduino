@@ -1,4 +1,3 @@
-#include <blink2.h>
 #include <alarm.h>
 
 /*
@@ -16,16 +15,11 @@ int rc_irq = 0;
 
 
 // Objects instanciation
-Alive alive = Alive(leds[0]);
-Alarm alarm = Alarm(leds[1], leds[2]);
+Alarm alarm = Alarm(leds[0], leds[1], leds[2]);
 
 
 void setup() {
-    LedInit init = LedInit(leds, 3);
-    init.init();
-
     alarm.init(rc_irq);
-    alive.init();
 }
 
 
@@ -39,7 +33,6 @@ void loop() {
 
     // do checks
     alarm.check();
-    alive.check();
 
     // wait between loops
     delay(10);

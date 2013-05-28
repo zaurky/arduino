@@ -14,7 +14,7 @@
 
 class Alarm {
     public:
-        Alarm(int rc_irq, int sensor_led_id, int armed_id);
+        Alarm(int alive_id, int sensor_led_id, int armed_id);
         void init(int rc_irq = 0);
         int work(long sensor_id);
         void check();
@@ -23,6 +23,7 @@ class Alarm {
     private:
         Sensor* _sensor;
         Led* _armed_led;
+        Alive* _alive;
 };
 
 #endif
