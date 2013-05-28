@@ -7,19 +7,13 @@ get 32 bits values.
 */
 
 
-// arduino pin where things are plugged (need at least 3 leds)
-int leds[3] = {2, 4, 5};
-
-// Receiver on inerrupt 0 => that is pin #3 on leonardo
-int rc_irq = 0;
-
-
 // Objects instanciation
-Alarm alarm = Alarm(leds[0], leds[1], leds[2]);
+Alarm alarm = Alarm(2, 4, 5);
 
 
 void setup() {
-    alarm.init(rc_irq);
+    // Receiver on inerrupt 0 => that is pin #3 on leonardo
+    alarm.init(0);
 }
 
 
@@ -33,7 +27,4 @@ void loop() {
 
     // do checks
     alarm.check();
-
-    // wait between loops
-    delay(10);
 }
