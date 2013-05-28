@@ -41,10 +41,16 @@ class Blink2;
 #define sensor_type_key_defeared 4
 #define sensor_type_key_other 5
 
+#define action_nothing 0
+#define action_armed 1
+#define action_desarmed 2
+#define action_defeared 3
+#define action_enter 4
+
 
 class Sensor {
     public:
-        Sensor(int led_id, int armed_id);
+        Sensor(int led_id);
         void init();
         int work(long sensor_id);
         void check();
@@ -55,7 +61,6 @@ class Sensor {
         boolean debounce(int uuid);
     private:
         Blink2* _msg_led;
-        Led* _armed_led;
 
         // all the list that follow must have the same number of elements
         // as sensors uuid declared.
@@ -70,8 +75,9 @@ class Sensor {
             sensor_type_door, sensor_type_door, sensor_type_door,
             sensor_type_door, sensor_type_door,
             sensor_type_zone, sensor_type_zone, sensor_type_zone,
-            sensor_type_key_on, sensor_type_key_off, sensor_type_key_defeared,
-            sensor_type_key_other, sensor_type_key_on, sensor_type_key_off,
+            sensor_type_key_on, sensor_type_key_off,
+            sensor_type_key_defeared, sensor_type_key_other,
+            sensor_type_key_on, sensor_type_key_off,
             sensor_type_key_defeared, sensor_type_key_other
         };
 };
