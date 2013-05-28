@@ -2,6 +2,9 @@
 #include "blink2.h"
 
 
+/*
+ * Led object : handle led on and off
+ */
 Led::Led(int led_id) {
     _led_id = led_id;
     state = LOW;
@@ -22,6 +25,9 @@ void Led::off() {
 }
 
 
+/*
+ * Blink2 object : handle led on and off on defined pattern
+ */
 Blink2::Blink2(int led_id, int duration) {
     _active = false;
     _led = new Led(led_id);
