@@ -44,12 +44,7 @@ void Alarm::check() {
 
     // handle defeared arm
     if (_defeared != 0) {
-        unsigned long currentMillis = millis();
-
-        if (currentMillis - _defeared >= defeardedDelay) {
-            arm();
-            _defeared = 0
-        }
+        defeared_arm();
     }
 
     _alive->check();
@@ -61,6 +56,16 @@ void Alarm::arm() {_armed_led->on();}
 
 
 void Alarm::desarm() {_armed_led->off();}
+
+
+void Alarm::defeared_arm() {
+    unsigned long currentMillis = millis();
+
+    if (currentMillis - _defeared >= defeardedDelay) {
+        arm();
+        _defeared = 0;
+    }
+}
 
 
 void Alarm::defeared() {_defeared = currentMillis = millis();}

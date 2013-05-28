@@ -23,6 +23,7 @@ class Alarm {
         void check();
         void arm();
         void desarm();
+        void defeared_arm();
         void defeared();
         boolean armed();
     protected:
