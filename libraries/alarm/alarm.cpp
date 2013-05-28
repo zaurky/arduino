@@ -24,9 +24,9 @@ int Alarm::work(long sensor_id) {
     int action = _sensor->work(sensor_id);
 
     if (action == action_armed) {
-        _armed_led->on();
+        arm();
     } else if (action == action_desarmed) {
-        _armed_led->off();
+        desarm();
     } else if (action == action_defeared) {
         // do somethink in delay
         // _armed_led->off();
@@ -42,6 +42,28 @@ void Alarm::check() {
         mySwitch->resetAvailable();
     }
 
+    // handle defeared arm
+    if (_defeared != 0) {
+        unsigned long currentMillis = millis();
+
+        if (currentMillis - _defeared >= defeardedDelay) {
+            arm();
+            _defeared = 0
+        }
+    }
+
     _alive->check();
     _sensor->check();
 }
+
+
+void Alarm::arm() {_armed_led->on();}
+
+
+void Alarm::desarm() {_armed_led->off();}
+
+
+void Alarm::defeared() {_defeared = currentMillis = millis();}
+
+
+boolean Alarm::armed() {return _armed_led->state == HIGH;}
