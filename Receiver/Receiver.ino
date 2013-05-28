@@ -1,4 +1,8 @@
+#include <RCSwitch.h>
+#include <blink2.h>
+#include <sensor.h>p
 #include <alarm.h>
+
 
 /*
 This code is done for Leonardo arduino board, if you plan to use it somewhere else,
@@ -7,7 +11,7 @@ get 32 bits values.
 */
 
 
-// Objects instanciation
+// Alarm instanciation with led on pin 2, 4 and 5
 Alarm alarm = Alarm(2, 4, 5);
 
 
