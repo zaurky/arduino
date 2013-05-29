@@ -24,6 +24,7 @@ void Alarm::init(int rc_irq) {
 
 
 int Alarm::work(long sensor_id) {
+    int uuid = _sensor->get_uuid(sensor_id);
     int action = _sensor->work(sensor_id);
 
     if (action == action_armed) {
@@ -32,8 +33,12 @@ int Alarm::work(long sensor_id) {
         disarm();
     } else if (action == action_defeared) {
         defeared();
+    } else if (action == action_other) { // only arm outside doors
+        arm(2);
     } else if (action == action_enter) {
-        door_open();
+        if (_sensor->zone(uuid) > _arm_level) {
+            door_open();
+        }
     }
     return action;
 }
@@ -60,6 +65,7 @@ void Alarm::check() {
 // alarm disarm
 void Alarm::disarm() {
     _armed_led->off();
+//    _buzzer->off();
     _defeared = 0;
     _ring = 0;
 }
@@ -71,9 +77,10 @@ void Alarm::defeared_arm() {
 }
 
 
-void Alarm::arm() {
+void Alarm::arm(int level) {
     _armed_led->on();
     _defeared = 0;
+    _arm_level = level;
 }
 
 
@@ -95,5 +102,6 @@ void Alarm::door_open() {_ring = millis();}
 
 void Alarm::ring() {
     Serial.println("Ring!");
+//    _buzzer->on();
     _ring = 0;
 }
