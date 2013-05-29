@@ -13,6 +13,8 @@
 
 
 #define defeardedDelay 30000
+#define bipDelay 30000
+#define ringDelay 60000
 
 
 class Alarm {
@@ -26,6 +28,9 @@ class Alarm {
         void defeared_arm();
         void defeared();
         boolean armed();
+        void ring();
+        void door_open();
+        void door_open_ring();
     protected:
         RCSwitch* mySwitch;
     private:
@@ -33,6 +38,7 @@ class Alarm {
         Led* _armed_led;
         Alive* _alive;
         unsigned long _defeared = 0;
+        unsigned long _ring = 0;
         int* _leds;
 };
 

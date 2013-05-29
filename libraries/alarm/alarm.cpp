@@ -31,6 +31,8 @@ int Alarm::work(long sensor_id) {
         desarm();
     } else if (action == action_defeared) {
         defeared();
+    } else if (action == action_enter) {
+        door_open();
     }
     return action;
 }
@@ -47,16 +49,21 @@ void Alarm::check() {
     if (_defeared != 0) {
         defeared_arm();
     }
+    // handle defeared ring
+    if (_ring != 0) {
+        door_open_ring();
+    }
 
     _alive->check();
     _sensor->check();
 }
 
 
-void Alarm::arm() {_armed_led->on();}
-
-
-void Alarm::desarm() {_armed_led->off();}
+void Alarm::desarm() {
+    _armed_led->off();
+    _defeared = 0;
+    _ring = 0;
+}
 
 
 void Alarm::defeared_arm() {
@@ -69,7 +76,28 @@ void Alarm::defeared_arm() {
 }
 
 
+void Alarm::arm() {_armed_led->on();}
+
+
 void Alarm::defeared() {_defeared = millis();}
 
 
 boolean Alarm::armed() {return _armed_led->state == HIGH;}
+
+
+void Alarm::door_open_ring() {
+    unsigned long currentMillis = millis();
+
+    if (currentMillis - _ring >= ringDelay) {
+        ring();
+        _ring = 0;
+    }
+}
+
+
+void Alarm::door_open() {_ring = millis();}
+
+
+void Alarm::ring() {
+    Serial.println("Ring!");
+}
