@@ -25,7 +25,7 @@ class Blink2;
 #define key_1_activate 3395008
 #define key_1_deactivate 3394828
 #define key_1_defeared 3394819
-#define key_1_other 1111 // put the right code
+#define key_1_other 3394864
 #define key_2_activate 13972416
 #define key_2_deactivate 13972236
 #define key_2_defeared 13972227
