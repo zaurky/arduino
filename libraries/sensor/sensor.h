@@ -40,11 +40,17 @@ class Blink2;
 #define sensor_type_key_defeared 4
 #define sensor_type_key_other 5
 
+#define sensor_nozone 0
+#define sensor_zone_1 1
+#define sensor_zone_2 2
+#define sensor_zone_3 3
+
 #define action_nothing 0
 #define action_armed 1
 #define action_disarmed 2
 #define action_defeared 3
-#define action_enter 4
+#define action_other 4
+#define action_enter 5
 
 
 class Sensor {
@@ -55,6 +61,7 @@ class Sensor {
         void check();
         int get_uuid(long sensor_id);
         short type(int uuid);
+        short zone(int uuid);
         boolean know(int uuid);
         String get_name(int uuid);
         boolean debounce(int uuid);
@@ -78,6 +85,13 @@ class Sensor {
             sensor_type_key_defeared, sensor_type_key_other,
             sensor_type_key_on, sensor_type_key_off,
             sensor_type_key_defeared, sensor_type_key_other
+        };
+        short _sensor_zone[16] = {
+            sensor_zone_3, sensor_zone_3, sensor_zone_3,
+            sensor_zone_3, sensor_zone_3,
+            sensor_zone_2, sensor_zone_1, sensor_zone_1,
+            sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone,
+            sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone
         };
 };
 

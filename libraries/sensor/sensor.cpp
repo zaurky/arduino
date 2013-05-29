@@ -36,6 +36,9 @@ int Sensor::work(long sensor_id) {
         } else if (type(uuid) == sensor_type_key_defeared) {
             Serial.print("Key pressed : ");
             ret = action_defeared;
+        } else if (type(uuid) == sensor_type_key_other) {
+            Serial.print("Key pressed : ");
+            ret = action_other;
         }
         Serial.println(get_name(uuid));
     }
@@ -84,6 +87,11 @@ int Sensor::get_uuid(long sensor_id) {
             return 15;
     }
     return -1;
+}
+
+
+short Sensor::zone(int uuid) {
+    return _sensor_zone[uuid];
 }
 
 
