@@ -30,8 +30,7 @@ int Alarm::work(long sensor_id) {
     } else if (action == action_desarmed) {
         desarm();
     } else if (action == action_defeared) {
-        // do somethink in delay
-        // _armed_led->off();
+        defeared();
     }
     return action;
 }
