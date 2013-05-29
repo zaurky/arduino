@@ -14,6 +14,7 @@ class Buzzer {
     void on(int duration = -1);
     void off();
     void check();
+    int state;
   private:
     int _buzzer_id;
     int _duration;

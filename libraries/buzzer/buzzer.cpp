@@ -6,17 +6,23 @@ Buzzer::Buzzer(int buzzer_id) {
     _buzzer_id = buzzer_id;
     _duration = 0;
     _start = 0;
+
+    state = LOW;
+    pinMode(_buzzer_id, OUTPUT);
+    digitalWrite(_buzzer_id, state);
 }
 
 
 void Buzzer::on(int duration) {
     _duration = duration;
-    digitalWrite(_buzzer_id, HIGH);
+    state = HIGH;
+    digitalWrite(_buzzer_id, state);
 }
 
 
 void Buzzer::off() {
-    digitalWrite(_buzzer_id, LOW);
+    state = LOW;
+    digitalWrite(_buzzer_id, state);
 }
 
 
