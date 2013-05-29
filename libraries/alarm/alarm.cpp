@@ -97,7 +97,11 @@ void Alarm::door_open_ring() {
 }
 
 
-void Alarm::door_open() {_ring = millis();}
+void Alarm::door_open() {
+    if (_ring == 0) {
+        _ring = millis();
+    }
+}
 
 
 void Alarm::ring() {
