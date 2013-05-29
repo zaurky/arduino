@@ -9,6 +9,7 @@
 
 #include <blink2.h>
 #include <sensor.h>
+#include <buzzer.h>
 #include <RCSwitch.h>
 
 
@@ -19,7 +20,7 @@
 
 class Alarm {
     public:
-        Alarm(int alive_id, int sensor_led_id, int armed_id);
+        Alarm(int alive_id, int sensor_led_id, int armed_id, int buzzer_id = -1);
         void init(int rc_irq = 0);
         int work(long sensor_id);
         void check();
@@ -37,6 +38,7 @@ class Alarm {
         Sensor* _sensor;
         Led* _armed_led;
         Alive* _alive;
+        Buzzer* _buzzer;
         unsigned long _defeared = 0;
         unsigned long _ring = 0;
         int* _leds;

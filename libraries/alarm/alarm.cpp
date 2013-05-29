@@ -2,12 +2,14 @@
 #include "alarm.h"
 
 
-Alarm::Alarm(int alive_id, int sensor_led_id, int armed_id) {
+Alarm::Alarm(int alive_id, int sensor_led_id, int armed_id, int buzzer_id) {
     mySwitch = new RCSwitch();
     _sensor = new Sensor(sensor_led_id);
     _armed_led = new Led(armed_id);
     _alive = new Alive(alive_id);
     _leds = new int[3]{alive_id, sensor_led_id, armed_id};
+
+    if (buzzer_id != -1) {_buzzer = new Buzzer(buzzer_id);}
 }
 
 

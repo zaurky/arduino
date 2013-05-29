@@ -1,6 +1,7 @@
 #include <RCSwitch.h>
 #include <blink2.h>
-#include <sensor.h>p
+#include <sensor.h>
+#include <buzzer.h>
 #include <alarm.h>
 
 
