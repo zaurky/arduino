@@ -24,7 +24,7 @@ class Alarm {
         int work(long sensor_id);
         void check();
         void arm();
-        void desarm();
+        void disarm();
         void defeared_arm();
         void defeared();
         boolean armed();

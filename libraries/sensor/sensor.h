@@ -42,7 +42,7 @@ class Blink2;
 
 #define action_nothing 0
 #define action_armed 1
-#define action_desarmed 2
+#define action_disarmed 2
 #define action_defeared 3
 #define action_enter 4
 

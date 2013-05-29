@@ -32,7 +32,7 @@ int Sensor::work(long sensor_id) {
             ret = action_armed;
         } else if (type(uuid) == sensor_type_key_off) {
             Serial.print("Key pressed : ");
-            ret = action_desarmed;
+            ret = action_disarmed;
         } else if (type(uuid) == sensor_type_key_defeared) {
             Serial.print("Key pressed : ");
             ret = action_defeared;
