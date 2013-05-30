@@ -78,7 +78,8 @@ void Alarm::defeared_arm() {
 
 
 void Alarm::arm(int level) {
-    Serial.println("armed");
+    Serial.print("armed level ");
+    Serial.println(level);
     _armed_led->on();
     _defeared = 0;
     _arm_level = level;
