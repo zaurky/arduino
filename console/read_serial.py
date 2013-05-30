@@ -19,6 +19,7 @@ if __name__ == '__main__':
             line = console.readline().rstrip('\n')
             print datetime.now(), line
         except serial.serialutil.SerialException:
-            print "deconnect"
-            time.sleep(30);
-            console = serial.Serial(args.device, args.baud)
+            print "deconnected"
+            console.close();
+            time.sleep(10);
+            console.open();
