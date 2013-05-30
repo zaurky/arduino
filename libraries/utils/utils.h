@@ -9,6 +9,7 @@
 
 int sensorPercent(int pin);
 float sensorTemperature(int pin);
+int readSerialInt();
 void readSerialString(char* serInString);
 
 #endif

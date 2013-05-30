@@ -20,6 +20,15 @@ float sensorTemperature(int pin) {
 
 
 // read from serial
+int readSerialInt() {
+    int sb = 47;
+    if (Serial.available()) {
+        sb = Serial.read();
+    }
+    // ugly convert from ascii to latin1 ...
+    return sb - 48;
+}
+
 void readSerialString(char* serInString) {
     int sb;
     int serInIndx = 0;
