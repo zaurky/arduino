@@ -19,6 +19,7 @@ class SerialConsole {
         void help();
         void arm();
         void disarm();
+        void status();
         void action(int action_id);
         void check();
     private:
