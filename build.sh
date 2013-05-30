@@ -2,7 +2,7 @@
 
 PORT="/dev/ttyACM0"
 PROJECT="Receiver"
-LIBS="blink2 RCSwitch buzzer sensor alarm"
+LIBS="blink2 RCSwitch buzzer sensor alarm utils"
 
 # convert ino sketch file into a .cpp
 echo -e '#include "Arduino.h"\n\n' > "$PROJECT.cpp"
