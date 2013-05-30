@@ -20,7 +20,7 @@
 
 class Alarm {
     public:
-        Alarm(int alive_id, int sensor_led_id, int armed_id, int buzzer_id = -1);
+        Alarm(int alive_id, int sensor_led_id, int armed_id, int buzzer_id);
         void init(int rc_irq = 0);
         int work(long sensor_id);
         void check();

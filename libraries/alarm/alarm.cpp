@@ -8,8 +8,7 @@ Alarm::Alarm(int alive_id, int sensor_led_id, int armed_id, int buzzer_id) {
     _armed_led = new Led(armed_id);
     _alive = new Alive(alive_id);
     _leds = new int[3]{alive_id, sensor_led_id, armed_id};
-
-    if (buzzer_id != -1) {_buzzer = new Buzzer(buzzer_id);}
+    _buzzer = new Buzzer(buzzer_id);
 }
 
 
@@ -64,8 +63,9 @@ void Alarm::check() {
 
 // alarm disarm
 void Alarm::disarm() {
+    Serial.println("disarmed");
     _armed_led->off();
-//    _buzzer->off();
+    _buzzer->off();
     _defeared = 0;
     _ring = 0;
 }
@@ -78,6 +78,7 @@ void Alarm::defeared_arm() {
 
 
 void Alarm::arm(int level) {
+    Serial.println("armed");
     _armed_led->on();
     _defeared = 0;
     _arm_level = level;
@@ -106,6 +107,6 @@ void Alarm::door_open() {
 
 void Alarm::ring() {
     Serial.println("Ring!");
-//    _buzzer->on();
+    _buzzer->on();
     _ring = 0;
 }
