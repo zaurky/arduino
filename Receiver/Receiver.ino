@@ -13,7 +13,7 @@ get 32 bits values.
 
 
 // Alarm instanciation with led on pin 2, 4 and 5
-Alarm alarm = Alarm(2, 4, 5);
+Alarm alarm = Alarm(2, 4, 5, 13);
 
 
 void setup() {
