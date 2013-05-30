@@ -17,8 +17,11 @@ Alarm alarm = Alarm(2, 4, 5, 13);
 
 
 void setup() {
+    Serial.begin(9600);
+
     // Receiver on inerrupt 0 => that is pin #3 on leonardo
     alarm.init(0);
+    alarm.arm(2);
 }
 
 

@@ -7,7 +7,6 @@ Sensor::Sensor(int led_id) {
 
 
 void Sensor::init() {
-    Serial.begin(9600);
 }
 
 
