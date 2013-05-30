@@ -3,6 +3,7 @@
 #include <sensor.h>
 #include <buzzer.h>
 #include <alarm.h>
+#include <serialconsole.h>
 
 
 /*
@@ -14,6 +15,7 @@ get 32 bits values.
 
 // Alarm instanciation with led on pin 2, 4 and 5
 Alarm alarm = Alarm(2, 4, 5, 13);
+SerialConsole serial_console = SerialConsole(&alarm);
 
 
 void setup() {
@@ -27,11 +29,7 @@ void setup() {
 
 void loop() {
     // if something comes from the serial
-    /*if (Serial.available() > 0) {
-        char serInString[50];
-        readSerialString(serInString);
-        alive.order(serInString);
-    }*/
+    serial_console.check();
 
     // do checks
     alarm.check();
