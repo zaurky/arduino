@@ -29,6 +29,7 @@ class Alarm {
         void defeared_arm();
         void defeared();
         boolean armed();
+        short arm_level();
         void ring();
         void door_open();
         void door_open_ring();

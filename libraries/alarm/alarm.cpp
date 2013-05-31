@@ -93,6 +93,9 @@ void Alarm::defeared() {_defeared = millis();}
 boolean Alarm::armed() {return _armed_led->state == HIGH;}
 
 
+short Alarm::arm_level() {return _arm_level;}
+
+
 // alarm fired
 void Alarm::door_open_ring() {
     if (millis() - _ring >= ringDelay) {ring();}
