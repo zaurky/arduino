@@ -14,6 +14,8 @@
 class SerialConsole {
     public:
         SerialConsole(Alarm* alarm);
+        void init_temperature(int tempPin);
+        void init_lumiere(int lumPin);
         int serial_action();
         int wait_serial();
         void help();
@@ -24,6 +26,8 @@ class SerialConsole {
         void check();
     private:
         Alarm* _alarm;
+        int _tempPin = -1;
+        int _lumPin = -1;
 };
 
 #endif

@@ -6,6 +6,15 @@ SerialConsole::SerialConsole(Alarm* alarm) {
 }
 
 
+void SerialConsole::init_temperature(int tempPin) {
+    _tempPin = tempPin;
+}
+
+void SerialConsole::init_lumiere(int lumPin) {
+    _lumPin = lumPin;
+}
+
+
 int SerialConsole::serial_action() {
     if (Serial.available() > 0) {
         return readSerialInt();
@@ -31,6 +40,12 @@ void SerialConsole::help() {
     Serial.println("    level : the arm level (0|1|2)");
     Serial.println("  2 : disarm alarm");
     Serial.println("  3 : alarm status");
+    if (_tempPin != -1) {
+        Serial.println("  4 : show temperature");
+    }
+    if (_lumPin != -1) {
+        Serial.println("  5 : show lumiere");
+    }
     Serial.println("");
 }
 
@@ -71,6 +86,15 @@ void SerialConsole::action(int action_id) {
             break;
         case 3:
             status();
+            break;
+        case 4:
+            Serial.print("INFO: ");
+            Serial.print(sensorTemperature(_tempPin));
+            Serial.println(" °C");
+            break;
+        case 5:
+            Serial.print("INFO: ");
+            Serial.println(analogRead(_lumPin));
             break;
         default:
             help();
