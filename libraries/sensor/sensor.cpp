@@ -16,27 +16,27 @@ int Sensor::work(long sensor_id) {
 
     if (!know(uuid)) {
         _msg_led->blink(blink_unknown);
-        Serial.print("Received : ");
+        Serial.print("ERROR: Received : ");
         Serial.println(sensor_id);
     } else if (debounce(uuid)) {
         _msg_led->blink(blink_ok);
         if (type(uuid) == sensor_type_door) {
-            Serial.print("Door opened : ");
+            Serial.print("EVENT: Door opened : ");
             ret = action_enter;
         } else if (type(uuid) == sensor_type_zone) {
-            Serial.print("Someone in zone : ");
+            Serial.print("EVENT: Someone in zone : ");
             ret = action_enter;
         } else if (type(uuid) == sensor_type_key_on) {
-            Serial.print("Key pressed : ");
+            Serial.print("EVENT: Key pressed : ");
             ret = action_armed;
         } else if (type(uuid) == sensor_type_key_off) {
-            Serial.print("Key pressed : ");
+            Serial.print("EVENT: Key pressed : ");
             ret = action_disarmed;
         } else if (type(uuid) == sensor_type_key_defeared) {
-            Serial.print("Key pressed : ");
+            Serial.print("EVENT: Key pressed : ");
             ret = action_defeared;
         } else if (type(uuid) == sensor_type_key_other) {
-            Serial.print("Key pressed : ");
+            Serial.print("EVENT: Key pressed : ");
             ret = action_other;
         }
         Serial.println(get_name(uuid));

@@ -36,7 +36,7 @@ void SerialConsole::help() {
 
 
 void SerialConsole::arm() {
-    Serial.println("Arming alarm, insert a level please");
+    Serial.println("REQ: Arming alarm, insert a level please");
     _alarm->arm(wait_serial());
 }
 
@@ -48,10 +48,10 @@ void SerialConsole::disarm() {
 
 void SerialConsole::status() {
     if (_alarm->armed()) {
-        Serial.print("The alarm is armed - level : ");
+        Serial.print("INFO: The alarm is armed - level : ");
         Serial.println(_alarm->arm_level());
     } else {
-        Serial.println("The alarm is not armed");
+        Serial.println("INFO: The alarm is not armed");
     }
 }
 

@@ -63,7 +63,7 @@ void Alarm::check() {
 
 // alarm disarm
 void Alarm::disarm() {
-    Serial.println("Alarm disarmed");
+    Serial.println("INFO: Alarm disarmed");
     _armed_led->off();
     _buzzer->off();
     _defeared = 0;
@@ -78,7 +78,7 @@ void Alarm::defeared_arm() {
 
 
 void Alarm::arm(int level) {
-    Serial.print("Alarm armed at level ");
+    Serial.print("INFO: Alarm armed at level ");
     Serial.println(level);
     _armed_led->on();
     _defeared = 0;
@@ -110,7 +110,7 @@ void Alarm::door_open() {
 
 
 void Alarm::ring() {
-    Serial.println("Alarm ring!");
+    Serial.println("ALARM: Alarm ring!");
     _buzzer->on();
     _ring = 0;
 }
