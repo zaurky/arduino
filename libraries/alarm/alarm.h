@@ -31,6 +31,7 @@ class Alarm {
         boolean armed();
         short arm_level();
         void ring();
+        boolean is_ringing();
         void door_open();
         void door_open_ring();
     protected:
