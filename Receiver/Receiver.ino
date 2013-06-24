@@ -4,6 +4,7 @@
 #include <buzzer.h>
 #include <alarm.h>
 #include <serialconsole.h>
+#include <utils.h>
 
 
 /*
@@ -14,6 +15,9 @@ get 32 bits values.
 
 
 // Alarm instanciation with led on pin 2, 4 and 5
+int tempPin = 0;
+int lumPin = 1;
+
 Alarm alarm = Alarm(2, 4, 5, 13);
 SerialConsole serial_console = SerialConsole(&alarm);
 
@@ -24,6 +28,9 @@ void setup() {
     // Receiver on inerrupt 0 => that is pin #3 on leonardo
     alarm.init(0);
     alarm.arm(2);
+
+    serial_console.init_temperature(tempPin);
+    serial_console.init_lumiere(lumPin);
 }
 
 
