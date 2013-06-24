@@ -63,7 +63,11 @@ void SerialConsole::disarm() {
 
 void SerialConsole::status() {
     if (_alarm->armed()) {
-        Serial.print("INFO: The alarm is armed - level : ");
+        Serial.print("INFO: The alarm is armed");
+        if (_alarm->_ring != 0) {
+            Serial.print(" and ringing"); 
+        }
+        Serial.print(" - level : ");
         Serial.println(_alarm->arm_level());
     } else {
         Serial.println("INFO: The alarm is not armed");
