@@ -52,7 +52,12 @@ void SerialConsole::help() {
 
 void SerialConsole::arm() {
     Serial.println("REQ: Arming alarm, insert a level please");
-    _alarm->arm(wait_serial());
+    int level = wait_serial();
+    while (level < 0 || level > 2) {
+        Serial.println("REQ: Arming alarm, insert a level please");
+        level = wait_serial();
+    }
+    _alarm->arm(level);
 }
 
 
@@ -64,7 +69,7 @@ void SerialConsole::disarm() {
 void SerialConsole::status() {
     if (_alarm->armed()) {
         Serial.print("INFO: The alarm is armed");
-        if (_alarm->_ring != 0) {
+        if (_alarm->is_ringing()) {
             Serial.print(" and ringing"); 
         }
         Serial.print(" - level : ");
