@@ -1,3 +1,9 @@
-libraries/RCswitch*
+arduino
+core
+libraries/RCSwitch*
 *.swp
 *~
+*.o
+*.elf
+*.hex
+Receiver.cpp
