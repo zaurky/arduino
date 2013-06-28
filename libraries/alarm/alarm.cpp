@@ -68,6 +68,7 @@ void Alarm::disarm() {
     _buzzer->off();
     _defeared = 0;
     _ring = 0;
+    _arm_level = 1000;
 }
 
 
