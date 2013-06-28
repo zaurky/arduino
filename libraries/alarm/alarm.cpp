@@ -118,5 +118,5 @@ void Alarm::ring() {
 
 
 boolean Alarm::is_ringing() {
-    return _ring != 0;
+    return _buzzer->is_on();
 }

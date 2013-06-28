@@ -14,10 +14,11 @@ class Buzzer {
     void on(int duration = -1);
     void off();
     void check();
-    int state;
+    bool is_on();
   private:
     int _buzzer_id;
     int _duration;
+    int _state;
     unsigned long _start;
 };
 
