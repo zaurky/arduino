@@ -16,7 +16,7 @@ int Sensor::work(long sensor_id) {
 
     if (!know(uuid)) {
         _msg_led->blink(blink_unknown);
-        Serial.print("ERROR: Received : ");
+        Serial.print("INFO: Received : ");
         Serial.println(sensor_id);
     } else if (debounce(uuid)) {
         _msg_led->blink(blink_ok);
