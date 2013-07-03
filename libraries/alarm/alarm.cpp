@@ -35,7 +35,7 @@ int Alarm::work(long sensor_id) {
     } else if (action == action_other) { // only arm outside doors
         arm(2);
     } else if (action == action_enter) {
-        if (_sensor->zone(uuid) > _arm_level) {
+        if (_sensor->zone(uuid) >= _arm_level) {
             door_open();
         }
     }
