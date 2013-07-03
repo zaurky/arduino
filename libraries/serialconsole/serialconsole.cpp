@@ -54,7 +54,7 @@ void SerialConsole::help() {
 void SerialConsole::arm() {
     Serial.println("REQ: Arming alarm, insert a level please");
     int level = wait_serial();
-    while (level < 0 || level > 2) {
+    while (level < 0 || level > 3) {
         Serial.println("REQ: Arming alarm, insert a level please");
         level = wait_serial();
     }
