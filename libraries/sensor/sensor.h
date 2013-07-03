@@ -73,7 +73,7 @@ class Sensor {
         unsigned long _last_times[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         String _names[16] = {
             "entree", "salon N.O", "salon N.E", "salon E.N", "salon E.S",
-            "salon", "zone 2", "zone 3",
+            "salon", "escalier", "zone 3",
             "key 1 On", "key 1 Off", "key 1 defered", "key 1 other",
             "key 2 On", "key 2 Off", "key 2 defered", "key 2 other"
         };
@@ -89,7 +89,7 @@ class Sensor {
         short _sensor_zone[16] = {
             sensor_zone_3, sensor_zone_3, sensor_zone_3,
             sensor_zone_3, sensor_zone_3,
-            sensor_zone_2, sensor_zone_1, sensor_zone_1,
+            sensor_zone_2, sensor_zone_2, sensor_zone_1,
             sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone,
             sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone
         };
