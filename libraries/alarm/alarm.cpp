@@ -110,6 +110,17 @@ void Alarm::door_open() {
 }
 
 
+void Alarm::mute() {
+    if (_buzzer->is_on()) {
+        Serial.println("INFO: Alarm muted");
+        _buzzer->off();
+        _ring = 0;
+    } else {
+        Serial.println("INFO: Alarm does not need mute");
+    }
+}
+
+
 void Alarm::ring() {
     Serial.println("ALARM: Alarm ring!");
     _buzzer->on();

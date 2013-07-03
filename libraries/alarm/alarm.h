@@ -30,6 +30,7 @@ class Alarm {
         void defeared();
         boolean armed();
         short arm_level();
+        void mute();
         void ring();
         boolean is_ringing();
         void door_open();
