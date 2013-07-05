@@ -106,12 +106,12 @@ void SerialConsole::action(int action_id) {
             status();
             break;
         case 7:
-            Serial.print("INFO: ");
+            Serial.print("INFO: temperature ");
             Serial.print(sensorTemperature(_tempPin));
             Serial.println(" °C");
             break;
         case 8:
-            Serial.print("INFO: ");
+            Serial.print("INFO: light ");
             Serial.println(analogRead(_lumPin));
             break;
         default:
