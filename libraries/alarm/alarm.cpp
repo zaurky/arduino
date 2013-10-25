@@ -2,18 +2,19 @@
 #include "alarm.h"
 
 
-Alarm::Alarm(int alive_id, int sensor_led_id, int armed_id, int buzzer_id) {
+Alarm::Alarm(int alive_id, int sensor_led_id, int *armed_id, int buzzer_id) {
     mySwitch = new RCSwitch();
     _sensor = new Sensor(sensor_led_id);
-    _armed_led = new Led(armed_id);
+    _armed_led = new Leds(armed_id, 3);
     _alive = new Alive(alive_id);
-    _leds = new int[3]{alive_id, sensor_led_id, armed_id};
+    _leds = new int[5]{alive_id, sensor_led_id,
+                       armed_id[0], armed_id[1], armed_id[2]};
     _buzzer = new Buzzer(buzzer_id);
 }
 
 
 void Alarm::init(int rc_irq) {
-    LedInit init = LedInit(_leds, 3);
+    LedInit init = LedInit(_leds, 5);
     init.init();
 
     mySwitch->enableReceive(rc_irq);
@@ -81,7 +82,7 @@ void Alarm::defeared_arm() {
 void Alarm::arm(int level) {
     Serial.print("INFO: Alarm armed at level ");
     Serial.println(level);
-    _armed_led->on();
+    _armed_led->on(level);
     _defeared = 0;
     _arm_level = level;
 }
@@ -91,7 +92,7 @@ void Alarm::defeared() {_defeared = millis();}
 
 
 // is alarm armed ?
-boolean Alarm::armed() {return _armed_led->state == HIGH;}
+boolean Alarm::armed() {return _arm_level > 0;}
 
 
 short Alarm::arm_level() {return _arm_level;}
