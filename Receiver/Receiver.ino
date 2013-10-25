@@ -14,11 +14,15 @@ get 32 bits values.
 */
 
 
-// Alarm instanciation with led on pin 2, 4 and 5
+// Alarm instanciation with led on pin 2:alive, 4:signal and 5,6,7:levels
 int tempPin = 0;
 int lumPin = 1;
+int alive_id = 2;
+int signal_id = 4;
+int level_id[3] = {5, 6, 7};
+int buzzer_id = 13;
 
-Alarm alarm = Alarm(2, 4, 5, 13);
+Alarm alarm = Alarm(alive_id, signal_id, level_id, buzzer_id);
 SerialConsole serial_console = SerialConsole(&alarm);
 
 
