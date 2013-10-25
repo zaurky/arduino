@@ -118,3 +118,36 @@ void LedInit::init() {
         delay(_delta_a);
     }
 }
+
+
+/**
+ * Leds object : handle a list of leds
+ */
+Leds::Leds(int *leds_id, int len) {
+    _leds_id = leds_id;
+    _len = len;
+    _leds = new LedPtr[len];
+    for (int i = 0; i < _len; i++) {
+        _leds[i] = new Led(_leds_id[i]);
+    }
+}
+
+
+void Leds::on(int pos) {
+    for (int i = 0; i < pos; i++) {
+        _leds[pos]->on();
+    }
+    for (int i = pos; i < _len; i++) {
+        _leds[pos]->off();
+    }
+}
+
+
+void Leds::off() {
+    on(0);
+}
+
+
+int Leds::state(int pos) {
+    return _leds[pos]->state;
+}

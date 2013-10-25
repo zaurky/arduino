@@ -28,7 +28,7 @@ class Blink2 {
         Blink2(int led_id, int duration = 1000);
         boolean blink(int times);
         boolean check();
-      private:
+    private:
         Led* _led;
         int _duration;
         int _count;
@@ -58,5 +58,21 @@ class LedInit {
         int _delta_a;
         int _delta_b;
 };
+
+
+typedef Led* LedPtr;
+
+class Leds {
+    public:
+        Leds(int *leds_id, int len);
+        void on(int pos);
+        void off();
+        int state(int pos);
+    private:
+        LedPtr* _leds;
+        int _len;
+        int* _leds_id;
+};
+
 
 #endif
