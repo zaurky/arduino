@@ -134,11 +134,15 @@ Leds::Leds(int *leds_id, int len) {
 
 
 void Leds::on(int pos) {
-    for (int i = 0; i < pos; i++) {
-        _leds[pos]->on();
+    int inv = 0;
+    if (pos != 0) {
+        inv = _len - pos + 1;
     }
-    for (int i = pos; i < _len; i++) {
-        _leds[pos]->off();
+    for (int i = 0; i < inv; i++) {
+        _leds[i]->on();
+    }
+    for (int i = inv; i < _len; i++) {
+        _leds[i]->off();
     }
 }
 
