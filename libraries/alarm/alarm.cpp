@@ -28,7 +28,7 @@ int Alarm::work(long sensor_id) {
     int action = _sensor->work(sensor_id);
 
     if (action == action_armed) {
-        arm();
+        arm(1);
     } else if (action == action_disarmed) {
         disarm();
     } else if (action == action_defeared) {
