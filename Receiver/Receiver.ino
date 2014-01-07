@@ -29,7 +29,7 @@ SerialConsole serial_console = SerialConsole(&alarm);
 void setup() {
     Serial.begin(9600);
 
-    // Receiver on inerrupt 0 => that is pin #3 on leonardo
+    // Receiver on interrupt 0 => that is pin #3 on leonardo
     alarm.init(0);
     alarm.arm(2);
 
