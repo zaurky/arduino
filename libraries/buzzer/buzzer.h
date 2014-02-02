@@ -15,6 +15,7 @@ class Buzzer {
     void off();
     void check();
     bool is_on();
+    void play_sequence(boolean* seq, int len);
   private:
     int _buzzer_id;
     int _duration;

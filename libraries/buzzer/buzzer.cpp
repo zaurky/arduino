@@ -2,6 +2,11 @@
 #include "buzzer.h"
 
 
+/*
+boolean seq[10] = {true, true, true, false, false, false, true, false, true, false};
+sequence(inputPin, seq, 9);
+*/
+
 Buzzer::Buzzer(int buzzer_id) {
     _buzzer_id = buzzer_id;
     _duration = 0;
@@ -40,3 +45,14 @@ void Buzzer::check() {
 
 
 bool Buzzer::is_on() {return _state == HIGH;}
+
+
+void Buzzer::play_sequence(boolean* seq, int len) {
+    for (int i = 0; i < len; i++) {
+        if (seq[i]) {
+            analogWrite(_buzzer_id, 1000);
+        } else {
+            analogWrite(_buzzer_id, 0);
+        }
+    }
+}
