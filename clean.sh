@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm -f Receiver.cpp Receiver.elf Receiver.hex Receiver.o libraries/*/*.o
+rm -f Receiver.cpp Transmitter.cpp *.elf *.hex *.o libraries/*/*.o
 
