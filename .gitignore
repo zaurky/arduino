@@ -1,9 +1,7 @@
 arduino
 core
-libraries/RCSwitch*
 *.swp
 *~
 *.o
 *.elf
 *.hex
-*.cpp
