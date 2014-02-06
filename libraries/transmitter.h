@@ -9,15 +9,17 @@
 
 #include <RCSwitch.h>
 
+#define TXREPEAT 15
+
 
 class Transmitter {
     public:
-        Transmitter(int txPin);
+        Transmitter(byte txPin);
         void check();
     protected:
         RCSwitch* mySwitch;
     private:
-        int _tx_id;
+        byte _tx_id;
 };
 
 #endif

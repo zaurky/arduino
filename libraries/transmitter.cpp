@@ -2,10 +2,11 @@
 #include "transmitter.h"
 
 
-Transmitter::Transmitter(int txPin) {
+Transmitter::Transmitter(byte txPin) : _tx_id(txPin) {
     mySwitch = new RCSwitch();
-    _tx_id = txPin;
     mySwitch->enableTransmit(_tx_id);
+    mySwitch->setRepeatTransmit(TXREPEAT);
+
     pinMode(13, OUTPUT);
 }
 

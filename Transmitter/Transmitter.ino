@@ -10,7 +10,7 @@ get 32 bits values.
 
 
 // Transmitter params
-int txPin = 12;
+byte txPin = 12;
 
 Transmitter tx = Transmitter(txPin);
 
