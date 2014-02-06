@@ -20,35 +20,38 @@ SRC= $(wildcard *.c)
 OBJ= $(SRC:.c=.o)
 
 
-all: $(EXEC).hex
+all: $(EXEC)
+
+alarm: alarm.hex
+	@echo "build $@"
+
+transmition: transmition.hex
+	@echo "build $@"
+
+%.hex: %.elf
+	$(BINARY) $(BINARYOPT) $< $@
 ifeq (,$(wildcard $(PORT)))
-	echo "\n$(PORT) does not exist! Exiting..."
+	@echo "\n$(PORT) does not exist! Exiting..."
 else
-	(./utils/reset.py $(PORT) \
+	@(./utils/reset.py $(PORT) \
 		&& sleep 2 \
 		&& $(DUDE) $(DUDEOPT) -P $(PORT) -U "flash:w:$<")
 endif
 
-$(EXEC).hex: $(EXEC).elf
-	$(BINARY) $(BINARYOPT) $< $@
+%.elf: library %.o
+	$(GCC) $(GCCOPT) -o $@ $*.o libraries/*.o core/core.a -L core -lm
 
-$(EXEC).elf: $(EXEC).o
-	$(GCC) $(GCCOPT) -o $@ $< libraries/*.o core/core.a -L core -lm
-
-$(EXEC).o: library
-
-$(EXEC).cpp: project/$(EXEC).ino
-	(echo '#include "Arduino.h"\n\n' > "$(EXEC).cpp" \
-		&& cat "project/$(EXEC).ino" >> "$(EXEC).cpp")
-
-library:
-	(cd libraries && $(MAKE))
+%.cpp: project/%.ino
+	@(echo '#include "Arduino.h"\n\n' > "$@" && cat "$<" >> "$@")
 
 %.o: %.cpp
 	$(GPP) $(GPPOPT) $(CPPLIB) -o $@ $<
 
+library:
+	@(cd libraries && $(MAKE))
+
 .PHONY: clean
 
 clean:
-	(cd libraries && $(MAKE) $@)
-	rm -rf *.o *.hex *.elf *.cpp
+	@(cd libraries && $(MAKE) $@)
+	@rm -rf *.o *.hex *.elf *.cpp
