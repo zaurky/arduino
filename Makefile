@@ -1,4 +1,4 @@
-EXEC=Receiver
+EXEC=alarm
 PORT=/dev/ttyACM0
 
 
@@ -37,9 +37,9 @@ $(EXEC).elf: $(EXEC).o
 
 $(EXEC).o: library
 
-$(EXEC).cpp: $(EXEC)/$(EXEC).ino
+$(EXEC).cpp: project/$(EXEC).ino
 	(echo '#include "Arduino.h"\n\n' > "$(EXEC).cpp" \
-		&& cat "$(EXEC)/$(EXEC).ino" >> "$(EXEC).cpp")
+		&& cat "project/$(EXEC).ino" >> "$(EXEC).cpp")
 
 library:
 	(cd libraries && $(MAKE))

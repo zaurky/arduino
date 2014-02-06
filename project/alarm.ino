@@ -8,15 +8,15 @@
 
 
 /*
-This code is done for Leonardo arduino board, if you plan to use it somewhere else,
-pay attention to the size of int and long. Here value goes in a long, because we
-get 32 bits values.
+This code is done for Leonardo arduino board, if you plan to use it somewhere
+else, pay attention to the size of int and long. Here value goes in a long,
+because we get 32 bits values.
 */
 
 
 // Alarm instanciation with led on pin 2:alive, 4:signal and 5,6,7:levels
-int tempPin = 0;
-int lumPin = 1;
+// and buzzer on the 13
+
 int alive_id = 2;
 int signal_id = 4;
 int level_id[3] = {5, 6, 7};
@@ -32,9 +32,6 @@ void setup() {
     // Receiver on interrupt 0 => that is pin #3 on leonardo
     alarm.init(0);
     alarm.arm(2);
-
-    serial_console.init_temperature(tempPin);
-    serial_console.init_lumiere(lumPin);
 }
 
 
