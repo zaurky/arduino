@@ -23,10 +23,10 @@ OBJ= $(SRC:.c=.o)
 all: $(EXEC)
 
 alarm: alarm.hex
-	@echo "build $@"
+	@echo "build $@ done"
 
-transmition: transmition.hex
-	@echo "build $@"
+transmitter: transmitter.hex
+	@echo "build $@ done"
 
 %.hex: %.elf
 	$(BINARY) $(BINARYOPT) $< $@
@@ -41,14 +41,14 @@ endif
 %.elf: library %.o
 	$(GCC) $(GCCOPT) -o $@ $*.o libraries/*.o core/core.a -L core -lm
 
-%.cpp: project/%.ino
-	@(echo '#include "Arduino.h"\n\n' > "$@" && cat "$<" >> "$@")
+library:
+	@(cd libraries && $(MAKE))
 
 %.o: %.cpp
 	$(GPP) $(GPPOPT) $(CPPLIB) -o $@ $<
 
-library:
-	@(cd libraries && $(MAKE))
+%.cpp: project/%.ino
+	@(echo '#include "Arduino.h"\n\n' > "$@" && cat "$<" >> "$@")
 
 .PHONY: clean
 
