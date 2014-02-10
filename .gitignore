@@ -5,3 +5,8 @@ core
 *.o
 *.elf
 *.hex
+*.bin
+libraries/CardReader.*
+libraries/MFRC522.*
+libraries/SPI.*
+build/
