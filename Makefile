@@ -1,5 +1,6 @@
-EXEC=alarm
+EXEC=alarm.bin
 PORT=/dev/ttyACM0
+MAXMEM=28672
 
 
 GPP=avr-g++
@@ -16,16 +17,22 @@ DUDEOPT=-patmega32u4 -cavr109 -b57600 -D
 
 CPPLIB=-I arduino -I libraries
 
-SRC= $(wildcard *.c)
-OBJ= $(SRC:.c=.o)
+# DEPS lists per target
+READER_SRC=libraries/CardReader.cpp
+READER_OBJ=$(READER_SRC:.cpp=.o)
+
+ALARM_SRC=libraries/alarm.cpp libraries/blink2.cpp libraries/buzzer.cpp \
+		  libraries/RCSwitch.cpp libraries/sensor.cpp \
+		  libraries/serialconsole.cpp libraries/utils.cpp
+ALARM_OBJ=$(ALARM_SRC:.cpp=.o)
+
+TRAMITTER_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp
+TRAMITTER_OBJ=$(TRAMITTER_SRC:.cpp=.o)
 
 
 all: $(EXEC)
 
-alarm: alarm.hex
-	@echo "build $@ done"
-
-transmitter: transmitter.hex
+%.bin: %.hex
 	@echo "build $@ done"
 
 %.hex: %.elf
@@ -33,16 +40,21 @@ transmitter: transmitter.hex
 ifeq (,$(wildcard $(PORT)))
 	@echo "\n$(PORT) does not exist! Exiting..."
 else
-	@(./utils/reset.py $(PORT) \
+	@([ $(stat -c %s $<) -lt $(MAXMEM) ] \
+		&& ./utils/reset.py $(PORT) \
 		&& sleep 2 \
-		&& $(DUDE) $(DUDEOPT) -P $(PORT) -U "flash:w:$<")
+		&& $(DUDE) $(DUDEOPT) -P $(PORT) -U "flash:w:$@")
 endif
 
-%.elf: library %.o
-	$(GCC) $(GCCOPT) -o $@ $*.o libraries/*.o core/core.a -L core -lm
+# add the .ino file and its dependencies
+reader.elf: reader.o $(READER_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(READER_OBJ) core/core.a -L core -lm
 
-library:
-	@(cd libraries && $(MAKE))
+alarm.elf: alarm.o $(ALARM_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(ALARM_OBJ) core/core.a -L core -lm
+
+transmitter.elf: transmitter.o $(TRAMITTER_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(TRAMITTER_OBJ) core/core.a -L core -lm
 
 %.o: %.cpp
 	$(GPP) $(GPPOPT) $(CPPLIB) -o $@ $<
@@ -50,8 +62,13 @@ library:
 %.cpp: project/%.ino
 	@(echo '#include "Arduino.h"\n\n' > "$@" && cat "$<" >> "$@")
 
+libraries/%.o: libraries/%.cpp
+	$(GPP) $(GPPOPT) $(CPPLIB) -o $@ $<
+
+
+.PRECIOUS: %.hex
 .PHONY: clean
 
 clean:
 	@(cd libraries && $(MAKE) $@)
-	@rm -rf *.o *.hex *.elf *.cpp
+	@rm -rf *.o *.hex *.elf *.cpp libraries/*.o
