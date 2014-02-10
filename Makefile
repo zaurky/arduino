@@ -61,6 +61,9 @@ alarm.elf: alarm.o $(ALARM_OBJ)
 transmitter.elf: transmitter.o $(TRAMITTER_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(TRAMITTER_OBJ) core/core.a -L core -lm
 
+empty.elf: empty.o
+	$(GCC) $(GCCOPT) -o $@ $< core/core.a -L core -lm
+
 %.o: %.cpp
 	$(GPP) $(GPPOPT) $(CPPLIB) -o $@ $<
 
