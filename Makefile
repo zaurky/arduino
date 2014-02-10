@@ -34,17 +34,22 @@ all: $(EXEC)
 
 %.bin: %.hex
 	@echo "build $@ done"
-
-%.hex: %.elf
-	$(BINARY) $(BINARYOPT) $< $@
 ifeq (,$(wildcard $(PORT)))
 	@echo "\n$(PORT) does not exist! Exiting..."
 else
-	@([ $(stat -c %s $<) -lt $(MAXMEM) ] \
-		&& ./utils/reset.py $(PORT) \
-		&& sleep 2 \
-		&& $(DUDE) $(DUDEOPT) -P $(PORT) -U "flash:w:$@")
+	@if [ `stat -c %s $<` -lt $(MAXMEM) ]; then \
+		echo "uploading $@ to $(PORT)"; \
+		mv $< $@; \
+		(./utils/reset.py $(PORT) \
+			&& sleep 2 \
+			&& $(DUDE) $(DUDEOPT) -P $(PORT) -U "flash:w:$@"); \
+	else \
+		echo "$< is too big"; \
+	fi
 endif
+
+%.hex: %.elf
+	$(BINARY) $(BINARYOPT) $< $@
 
 # add the .ino file and its dependencies
 reader.elf: reader.o $(READER_OBJ)
