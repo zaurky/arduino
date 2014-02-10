@@ -15,7 +15,7 @@
 class Transmitter {
     public:
         Transmitter(byte txPin);
-        void check();
+        void send(int code);
     protected:
         RCSwitch* mySwitch;
     private:

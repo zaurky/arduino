@@ -17,9 +17,14 @@ Transmitter tx = Transmitter(txPin);
 
 void setup() {
     Serial.begin(9600);
+    pinMode(13, OUTPUT);
 }
 
 
 void loop() {
-    tx.check();
+    digitalWrite(13, HIGH);
+    tx.send(5393);
+    delay(60);
+    digitalWrite(13, LOW);
+    delay(10000);
 }
