@@ -1,4 +1,4 @@
-EXEC=alarm.bin
+PROJECTS=alarm empty reader transmitter
 PORT=/dev/ttyACM0
 MAXMEM=28672
 
@@ -29,11 +29,12 @@ ALARM_OBJ=$(ALARM_SRC:.cpp=.o)
 TRAMITTER_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp
 TRAMITTER_OBJ=$(TRAMITTER_SRC:.cpp=.o)
 
+PROJECTS_HEX=$(PROJECTS:=.hex)
 
-all: $(EXEC)
+
+all: $(PROJECTS_HEX)
 
 %.bin: %.hex
-	@echo "build $@ done"
 ifeq (,$(wildcard $(PORT)))
 	@echo "\n$(PORT) does not exist! Exiting..."
 else
@@ -50,6 +51,7 @@ endif
 
 %.hex: %.elf
 	$(BINARY) $(BINARYOPT) $< $@
+	@echo "build $@ done"
 
 # add the .ino file and its dependencies
 reader.elf: reader.o $(READER_OBJ)
