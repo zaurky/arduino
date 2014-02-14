@@ -52,6 +52,8 @@ class Blink2;
 #define action_other 4
 #define action_enter 5
 
+#define delay_immediate 0
+#define delay_defered 20000  // 20 secondes
 
 class Sensor {
     public:
@@ -62,6 +64,7 @@ class Sensor {
         int get_uuid(long sensor_id);
         short type(int uuid);
         short zone(int uuid);
+        short delay(int uuid);
         boolean know(int uuid);
         String get_name(int uuid);
         boolean debounce(int uuid);
@@ -92,6 +95,13 @@ class Sensor {
             sensor_zone_2, sensor_zone_2, sensor_zone_1,
             sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone,
             sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone
+        };
+        short _sensor_delay[16] = {
+            delay_defered, delay_immediate, delay_immediate,
+            delay_immediate, delay_immediate,
+            delay_immediate, delay_immediate, delay_immediate,
+            delay_defered, delay_defered, delay_defered, delay_defered,
+            delay_defered, delay_defered, delay_defered, delay_defered
         };
 };
 

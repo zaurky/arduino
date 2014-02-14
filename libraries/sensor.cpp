@@ -94,6 +94,10 @@ short Sensor::zone(int uuid) {
 }
 
 
+short Sensor::delay(int uuid) {
+    return _sensor_delay[uuid];
+}
+
 boolean Sensor::know(int uuid) {
     return uuid != -1;
 }
