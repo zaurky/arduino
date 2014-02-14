@@ -37,7 +37,7 @@ int Alarm::work(long sensor_id) {
         arm(2);
     } else if (action == action_enter) {
         if (_sensor->zone(uuid) >= _arm_level) {
-            raise();
+            raise(uuid);
         }
     }
     return action;
@@ -75,10 +75,13 @@ void Alarm::disarm() {
 
 // alarm deferred arm
 void Alarm::deferred_arm() {
-    if (millis() - _deferred >= defeardedDelay) {arm();}
+    if (millis() - _deferred >= defeardedDelay) {
+        arm(defaultLevel);
+    }
 }
 
 
+// alarm arm
 void Alarm::arm(int level) {
     Serial.print("INFO: Alarm armed at level ");
     Serial.println(level);
@@ -88,36 +91,50 @@ void Alarm::arm(int level) {
 }
 
 
-void Alarm::deferred() {_deferred = millis();}
+// start deferred arm
+void Alarm::deferred() {
+    _deferred = millis();
+}
 
 
 // is alarm armed ?
-boolean Alarm::armed() {return _arm_level > 0;}
+boolean Alarm::armed() {
+    return arm_level() > 0;
+}
 
 
-short Alarm::arm_level() {return _arm_level;}
+short Alarm::arm_level() {
+    return _arm_level;
+}
 
 
 // alarm fired
 void Alarm::deferred_ring() {
-    if (millis() - _raised >= ringDelay) {
+    if (millis() - _raised >= _sensor->delay(_sensor_raise)) {
         ring();
     }
 }
 
 
-void Alarm::raise() {
+void Alarm::raise(int uuid) {
     if (_raised == 0) {
         _raised = millis();
+        _sensor_raise = uuid;
     }
 }
 
 
+void Alarm::off() {
+    _raised = 0;
+    _sensor_raise = -1;
+}
+
+
 void Alarm::mute() {
-    if (_buzzer->is_on()) {
+    if (_buzzer->is_on() || _raised != 0) {
         Serial.println("INFO: Alarm muted");
         _buzzer->off();
-        _raised = 0;
+        off();
     } else {
         Serial.println("INFO: Alarm does not need mute");
     }
@@ -126,8 +143,8 @@ void Alarm::mute() {
 
 void Alarm::ring() {
     Serial.println("ALARM: Alarm ring!");
+    off();
     _buzzer->on();
-    _raised = 0;
 }
 
 

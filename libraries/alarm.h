@@ -16,6 +16,7 @@
 #define defeardedDelay 30000
 #define bipDelay 30000
 #define ringDelay 60000
+#define defaultLevel 3
 
 
 class Alarm {
@@ -33,7 +34,8 @@ class Alarm {
         void mute();
         void ring();
         boolean is_ringing();
-        void raise();
+        void raise(int uuid);
+        void off();
         void deferred_ring();
     protected:
         RCSwitch* mySwitch;
@@ -44,6 +46,7 @@ class Alarm {
         Buzzer* _buzzer;
         unsigned long _deferred = 0;
         unsigned long _raised = 0;
+        int _sensor_raise = -1;
         int* _leds;
         short _arm_level = 0;
 };
