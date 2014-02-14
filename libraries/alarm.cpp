@@ -31,8 +31,8 @@ int Alarm::work(long sensor_id) {
         arm(1);
     } else if (action == action_disarmed) {
         disarm();
-    } else if (action == action_defeared) {
-        defeared();
+    } else if (action == action_deferred) {
+        deferred();
     } else if (action == action_other) { // only arm outside doors
         arm(2);
     } else if (action == action_enter) {
@@ -51,11 +51,11 @@ void Alarm::check() {
         mySwitch->resetAvailable();
     }
 
-    // handle defeared arm
-    if (_defeared != 0) {defeared_arm();}
+    // handle deferred arm
+    if (_deferred != 0) {deferred_arm();}
 
-    // handle defeared ring
-    if (_raised != 0) {defeared_ring();}
+    // handle deferred ring
+    if (_raised != 0) {deferred_ring();}
 
     _alive->check();
     _sensor->check();
@@ -67,15 +67,15 @@ void Alarm::disarm() {
     Serial.println("INFO: Alarm disarmed");
     _armed_led->off();
     _buzzer->off();
-    _defeared = 0;
+    _deferred = 0;
     _raised = 0;
     _arm_level = 1000;
 }
 
 
-// alarm defeared arm
-void Alarm::defeared_arm() {
-    if (millis() - _defeared >= defeardedDelay) {arm();}
+// alarm deferred arm
+void Alarm::deferred_arm() {
+    if (millis() - _deferred >= defeardedDelay) {arm();}
 }
 
 
@@ -83,12 +83,12 @@ void Alarm::arm(int level) {
     Serial.print("INFO: Alarm armed at level ");
     Serial.println(level);
     _armed_led->on(level);
-    _defeared = 0;
+    _deferred = 0;
     _arm_level = level;
 }
 
 
-void Alarm::defeared() {_defeared = millis();}
+void Alarm::deferred() {_deferred = millis();}
 
 
 // is alarm armed ?
@@ -99,7 +99,7 @@ short Alarm::arm_level() {return _arm_level;}
 
 
 // alarm fired
-void Alarm::defeared_ring() {
+void Alarm::deferred_ring() {
     if (millis() - _raised >= ringDelay) {
         ring();
     }

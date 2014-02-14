@@ -32,9 +32,9 @@ int Sensor::work(long sensor_id) {
         } else if (type(uuid) == sensor_type_key_off) {
             Serial.print("EVENT: Key pressed : ");
             ret = action_disarmed;
-        } else if (type(uuid) == sensor_type_key_defeared) {
+        } else if (type(uuid) == sensor_type_key_deferred) {
             Serial.print("EVENT: Key pressed : ");
-            ret = action_defeared;
+            ret = action_deferred;
         } else if (type(uuid) == sensor_type_key_other) {
             Serial.print("EVENT: Key pressed : ");
             ret = action_other;
@@ -72,7 +72,7 @@ int Sensor::get_uuid(long sensor_id) {
             return 8;
         case key_1_deactivate:
             return 9;
-        case key_1_defeared:
+        case key_1_deferred:
             return 10;
         case key_1_other:
             return 11;
@@ -80,7 +80,7 @@ int Sensor::get_uuid(long sensor_id) {
             return 12;
         case key_2_deactivate:
             return 13;
-        case key_2_defeared:
+        case key_2_deferred:
             return 14;
         case key_2_other:
             return 15;

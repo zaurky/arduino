@@ -26,15 +26,15 @@ class Alarm {
         void check();
         void arm(int level = 0);
         void disarm();
-        void defeared_arm();
-        void defeared();
+        void deferred_arm();
+        void deferred();
         boolean armed();
         short arm_level();
         void mute();
         void ring();
         boolean is_ringing();
         void raise();
-        void defeared_ring();
+        void deferred_ring();
     protected:
         RCSwitch* mySwitch;
     private:
@@ -42,7 +42,7 @@ class Alarm {
         Leds* _armed_led;
         Alive* _alive;
         Buzzer* _buzzer;
-        unsigned long _defeared = 0;
+        unsigned long _deferred = 0;
         unsigned long _raised = 0;
         int* _leds;
         short _arm_level = 0;

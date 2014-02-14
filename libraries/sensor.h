@@ -24,11 +24,11 @@ class Blink2;
 #define sensor_move_3 3626332
 #define key_1_activate 3395008
 #define key_1_deactivate 3394828
-#define key_1_defeared 3394819
+#define key_1_deferred 3394819
 #define key_1_other 3394864
 #define key_2_activate 13972416
 #define key_2_deactivate 13972236
-#define key_2_defeared 13972227
+#define key_2_deferred 13972227
 #define key_2_other 13972272
 
 #define debounceDelay 1500
@@ -37,7 +37,7 @@ class Blink2;
 #define sensor_type_zone 1
 #define sensor_type_key_on 2
 #define sensor_type_key_off 3
-#define sensor_type_key_defeared 4
+#define sensor_type_key_deferred 4
 #define sensor_type_key_other 5
 
 #define sensor_nozone 0
@@ -48,7 +48,7 @@ class Blink2;
 #define action_nothing 0
 #define action_armed 1
 #define action_disarmed 2
-#define action_defeared 3
+#define action_deferred 3
 #define action_other 4
 #define action_enter 5
 
@@ -85,9 +85,9 @@ class Sensor {
             sensor_type_door, sensor_type_door,
             sensor_type_zone, sensor_type_zone, sensor_type_zone,
             sensor_type_key_on, sensor_type_key_off,
-            sensor_type_key_defeared, sensor_type_key_other,
+            sensor_type_key_deferred, sensor_type_key_other,
             sensor_type_key_on, sensor_type_key_off,
-            sensor_type_key_defeared, sensor_type_key_other
+            sensor_type_key_deferred, sensor_type_key_other
         };
         short _sensor_zone[16] = {
             sensor_zone_3, sensor_zone_3, sensor_zone_3,
