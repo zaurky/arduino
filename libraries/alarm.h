@@ -33,8 +33,8 @@ class Alarm {
         void mute();
         void ring();
         boolean is_ringing();
-        void door_open();
-        void door_open_ring();
+        void raise();
+        void defeared_ring();
     protected:
         RCSwitch* mySwitch;
     private:
@@ -43,7 +43,7 @@ class Alarm {
         Alive* _alive;
         Buzzer* _buzzer;
         unsigned long _defeared = 0;
-        unsigned long _ring = 0;
+        unsigned long _raised = 0;
         int* _leds;
         short _arm_level = 0;
 };
