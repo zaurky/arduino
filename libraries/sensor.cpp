@@ -84,6 +84,12 @@ int Sensor::get_uuid(long sensor_id) {
             return 14;
         case key_2_other:
             return 15;
+        case sensor_rfid0:
+            return 16;
+        case sensor_rfid1:
+            return 17;
+        case sensor_rfid2:
+            return 18;
     }
     return -1;
 }
