@@ -38,6 +38,9 @@ int Sensor::work(long sensor_id) {
         } else if (type(uuid) == sensor_type_key_other) {
             Serial.print("EVENT: Key pressed : ");
             ret = action_other;
+        } else if (type(uuid) == sensor_type_rfid_tag) {
+            Serial.print("EVENT: RFID tag detected : ");
+            ret = action_freeze;
         }
         Serial.println(get_name(uuid));
     }
