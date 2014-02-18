@@ -1,6 +1,11 @@
-PROJECTS=alarm empty reader transmitter
+PROJECTS=alarm transmitter empty check_firmware authenticate
 PORT=/dev/ttyACM0
+# for leonardo
+BOARD=atmega32u4
 MAXMEM=28672
+# for UNO
+#BOARD=atmega328p
+#MAXMEM=32256
 
 
 GPP=avr-g++
@@ -10,10 +15,10 @@ DUDE=avrdude
 
 GPPOPT=-c -g -Os -w -Wl,--gc-sections \
 	-fno-exceptions -ffunction-sections -fdata-sections \
-	-mmcu=atmega32u4 -DF_CPU=16000000L -DARDUINO=22
-GCCOPT=-Os -Wl,--gc-sections -mmcu=atmega32u4
+	-mmcu=$(BOARD) -DF_CPU=16000000L -DARDUINO=22
+GCCOPT=-Os -Wl,--gc-sections -mmcu=$(BOARD)
 BINARYOPT=-O ihex -R .eeprom
-DUDEOPT=-patmega32u4 -cavr109 -b57600 -D
+DUDEOPT=-p$(BOARD) -cavr109 -b57600 -D
 
 CPPLIB=-I arduino -I libraries
 
@@ -26,19 +31,25 @@ ALARM_SRC=libraries/alarm.cpp libraries/blink2.cpp libraries/buzzer.cpp \
 		  libraries/serialconsole.cpp libraries/utils.cpp
 ALARM_OBJ=$(ALARM_SRC:.cpp=.o)
 
-TRAMITTER_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp
-TRAMITTER_OBJ=$(TRAMITTER_SRC:.cpp=.o)
+TRANSMITTER_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp
+TRANSMITTER_OBJ=$(TRANSMITTER_SRC:.cpp=.o)
+
+MODRFID_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp \
+			libraries/SPI.cpp libraries/MFRC522.cpp libraries/blink2.cpp \
+			libraries/rfid.cpp
+MODRFID_OBJ=$(MODRFID_SRC:.cpp=.o)
+
 
 PROJECTS_HEX=$(PROJECTS:=.hex)
 
 
-all: $(PROJECTS_HEX)
+all: $(PROJECTS_HEX) clean_wip
 
 %.bin: %.hex
 ifeq (,$(wildcard $(PORT)))
 	@echo "\n$(PORT) does not exist! Exiting..."
 else
-	@if [ `stat -c %s $<` -lt $(MAXMEM) ]; then \
+	@if [ `avr-size $< | tail -n 1 | awk '{print $$2}'` -lt $(MAXMEM) ]; then \
 		echo "uploading $@ to $(PORT)"; \
 		mv $< $@; \
 		(./utils/reset.py $(PORT) \
@@ -60,8 +71,14 @@ reader.elf: reader.o $(READER_OBJ)
 alarm.elf: alarm.o $(ALARM_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(ALARM_OBJ) core/core.a -L core -lm
 
-transmitter.elf: transmitter.o $(TRAMITTER_OBJ)
-	$(GCC) $(GCCOPT) -o $@ $< $(TRAMITTER_OBJ) core/core.a -L core -lm
+transmitter.elf: transmitter.o $(TRANSMITTER_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(TRANSMITTER_OBJ) core/core.a -L core -lm
+
+check_firmware.elf: check_firmware.o $(MODRFID_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(MODRFID_OBJ) core/core.a -L core -lm
+
+authenticate.elf: authenticate.o $(MODRFID_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(MODRFID_OBJ) core/core.a -L core -lm
 
 empty.elf: empty.o
 	$(GCC) $(GCCOPT) -o $@ $< core/core.a -L core -lm
@@ -79,6 +96,8 @@ libraries/%.o: libraries/%.cpp
 .PRECIOUS: %.hex
 .PHONY: clean
 
-clean:
-	@(cd libraries && $(MAKE) $@)
-	@rm -rf *.o *.hex *.elf *.cpp libraries/*.o
+clean_wip:
+	@rm -rf *.o *.elf *.cpp libraries/*.o
+
+clean: clean_wip
+	@rm -rf *.hex
