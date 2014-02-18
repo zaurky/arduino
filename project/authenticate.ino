@@ -18,12 +18,18 @@ void setup() {
 
 
 void loop() {
+//    rfid->read(4);
+
     long res;
 
     res = rfid->get_serial();
-    Serial.print("The serial nb of the tag is: ");
-    Serial.println(res);
+    if (res != 0) {
+        Serial.print("The serial nb of the tag is: ");
+        Serial.println(res);
+        if (res == tag1) {
+            Serial.println("This is a known tag");
+        }
+    }
 
-//    rfid->read(4);
     delay(500);
 }
