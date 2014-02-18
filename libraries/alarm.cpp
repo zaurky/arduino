@@ -39,6 +39,8 @@ int Alarm::work(long sensor_id) {
         if (_sensor->zone(uuid) >= _arm_level) {
             raise(uuid);
         }
+    } else if (action == action_freeze) {
+        freeze();
     }
     return action;
 }
@@ -59,6 +61,13 @@ void Alarm::check() {
 
     _alive->check();
     _sensor->check();
+}
+
+
+void Alarm::freeze() {
+    off();
+    mute();
+    _freeze = millis();
 }
 
 
@@ -142,6 +151,10 @@ void Alarm::mute() {
 
 
 void Alarm::ring() {
+    if (_freeze != 0 && millis() - _freeze < delay_freeze) {
+        Serial.println("INFO: Alarm frozen ring");
+        return;
+    }
     Serial.println("ALARM: Alarm ring!");
     off();
     _buzzer->on();

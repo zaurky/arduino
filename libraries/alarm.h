@@ -25,6 +25,7 @@ class Alarm {
         void init(int rc_irq = 0);
         int work(long sensor_id);
         void check();
+        void freeze();
         void arm(int level = 0);
         void disarm();
         void deferred_arm();
@@ -46,6 +47,7 @@ class Alarm {
         Buzzer* _buzzer;
         unsigned long _deferred = 0;
         unsigned long _raised = 0;
+        unsigned long _freeze = 0;
         int _sensor_raise = -1;
         int* _leds;
         short _arm_level = 0;
