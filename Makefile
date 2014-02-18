@@ -31,7 +31,9 @@ ALARM_SRC=libraries/alarm.cpp libraries/blink2.cpp libraries/buzzer.cpp \
 		  libraries/serialconsole.cpp libraries/utils.cpp
 ALARM_OBJ=$(ALARM_SRC:.cpp=.o)
 
-TRANSMITTER_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp
+TRANSMITTER_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp \
+				libraries/SPI.cpp libraries/MFRC522.cpp libraries/blink2.cpp \
+				libraries/rfid.cpp libraries/rfid_card.cpp
 TRANSMITTER_OBJ=$(TRANSMITTER_SRC:.cpp=.o)
 
 MODRFID_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp \
