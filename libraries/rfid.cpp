@@ -34,6 +34,16 @@ bool Rfid::init() {
 }
 
 
+bool Rfid::self_test() {
+    if (_nfc->digitalSelfTestPass()) {
+        Serial.print("Digital self test by MFRC522 passed.");
+        return true;
+    }
+    Serial.print("Digital self test by MFRC522 failed.");
+    return false;
+}
+
+
 bool Rfid::read_block(int i, byte* data) {
     byte status;
 

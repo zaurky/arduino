@@ -26,6 +26,7 @@ class Rfid {
     public:
         Rfid(int ack_pin);
         bool init();
+        bool self_test();
         void choose_setup(short setup);
         bool read_block(int i, byte* data);
         void print_block(int i, byte* data);
