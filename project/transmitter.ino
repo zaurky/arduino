@@ -1,5 +1,6 @@
 #include <RCSwitch.h>
 #include <transmitter.h>
+#include <rfid.h>
 
 
 /*
@@ -10,21 +11,36 @@ get 32 bits values.
 
 
 // Transmitter params
-byte txPin = 12;
+byte tx_pin = 12;
+byte ack_pin = 2;
 
-Transmitter tx = Transmitter(txPin);
+Transmitter tx = Transmitter(tx_pin);
+Rfid rfid = Rfid(ack_pin);
 
 
 void setup() {
-    Serial.begin(9600);
-    pinMode(13, OUTPUT);
+    SPI.begin();
+    // Read a fast as possible. There is a limit for how long we are
+    // allowed to read from the tags.
+    Serial.begin(115200);
+
+    // must be the last one (will take 2sec to init on leonardo board)
+    rfid.init();
+    rfid.choose_setup(KEYINIT);
 }
 
 
 void loop() {
-    digitalWrite(13, HIGH);
-    tx.send(5393);
-    delay(60);
-    digitalWrite(13, LOW);
-    delay(10000);
+    long res;
+
+    res = rfid.get_serial();
+    if (res != 0) {
+        Card card = Card(res);
+        if (card.exists()) {
+            Serial.println("Tag was detected");
+            tx.send(card.get_message());
+        }
+    }
+
+    delay(500);
 }
