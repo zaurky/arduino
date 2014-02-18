@@ -122,16 +122,20 @@ void Rfid::print_tag(byte* data, byte* serial) {
 
 
 bool Rfid::auth_and_read(byte mode, byte block, byte *key, byte *serial,
-                         byte *data) {
+                         byte *data, bool print) {
     bool success = true;
 
     if (_nfc->authenticate(mode, block, key, serial) == MI_OK) {
         if (!read_block(block, data)) {
             success = false;
 #ifdef DEBUG
-            Serial.println("Read failed.");
+            if (print) {
+                Serial.println("Read failed.");
+            }
         } else {
-            print_block(block, data);
+            if (print) {
+                print_block(block, data);
+            }
 #endif
         }
     }
@@ -170,6 +174,9 @@ long Rfid::get_serial() {
     }
     res |= serial[3];
 
+    // read one block else the tag will not be closed correctly ...
+    auth_and_read(_mode, 0, _key, serial, data, false);
+
     release_tag(success);
     return res;
 }
@@ -191,7 +198,7 @@ void Rfid::read(short nb_block) {
     // Assuming that there are only 64 blocks of memory in this chip.
     for (int i = 0; i < nb_block; i++) {
         // Try to authenticate each block.
-        if (!auth_and_read(_mode, i, _key, serial, data)) {
+        if (!auth_and_read(_mode, i, _key, serial, data, true)) {
             success = false;
 #ifdef DEBUG
             Serial.print("Access denied at block nb. 0x");

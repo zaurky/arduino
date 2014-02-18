@@ -4,11 +4,7 @@
 #include <MFRC522.h>
 #include <SPI.h>
 #include <blink2.h>
-
-
-#define tag0 0xa306408b // [A3, 6, 40, 8B]
-#define tag1 0x93367f81 // [93, 36, 7F, 81]
-#define tag2 0x8e49dc84 // [8E, 49, DC, 84]
+#include <rfid_card.h>
 
 
 #define SAD 10
@@ -33,7 +29,7 @@ class Rfid {
         bool get_tag(byte* data, byte* serial);
         void release_tag(bool success);
         void print_tag(byte* data, byte* serial);
-        bool auth_and_read(byte mode, byte block, byte *key, byte *serial, byte* data);
+        bool auth_and_read(byte mode, byte block, byte *key, byte *serial, byte* data, bool print);
         void read(short nb_block);
         long get_serial();
     protected:
@@ -46,5 +42,6 @@ class Rfid {
         byte _mode;
         byte* _key;
 };
+
 
 #endif
