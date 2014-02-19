@@ -1,5 +1,6 @@
 #include <RCSwitch.h>
 #include <transmitter.h>
+#include <rfid_card.h>
 #include <rfid.h>
 
 
