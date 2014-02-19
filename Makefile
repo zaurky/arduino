@@ -1,4 +1,4 @@
-PROJECTS=alarm rfid_proxy empty check_firmware authenticate
+PROJECTS=alarm rfid_proxy rfid_reader empty check_firmware
 PORT=/dev/ttyACM0
 # for leonardo
 BOARD=atmega32u4
@@ -76,10 +76,10 @@ alarm.elf: alarm.o $(ALARM_OBJ)
 rfid_proxy.elf: rfid_proxy.o $(TRANSMITTER_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(TRANSMITTER_OBJ) core/core.a -L core -lm
 
-check_firmware.elf: check_firmware.o $(MODRFID_OBJ)
+rfid_reader.elf: rfid_reader.o $(MODRFID_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(MODRFID_OBJ) core/core.a -L core -lm
 
-authenticate.elf: authenticate.o $(MODRFID_OBJ)
+check_firmware.elf: check_firmware.o $(MODRFID_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(MODRFID_OBJ) core/core.a -L core -lm
 
 empty.elf: empty.o
