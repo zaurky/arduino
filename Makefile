@@ -1,4 +1,4 @@
-PROJECTS=alarm rfid_proxy rfid_reader empty check_firmware
+PROJECTS=alarm rfid_proxy rfid_reader rfid_firmware_check empty
 PORT=/dev/ttyACM0
 # for leonardo
 BOARD=atmega32u4
@@ -67,9 +67,6 @@ endif
 	@echo "build $@ done"
 
 # add the .ino file and its dependencies
-reader.elf: reader.o $(READER_OBJ)
-	$(GCC) $(GCCOPT) -o $@ $< $(READER_OBJ) core/core.a -L core -lm
-
 alarm.elf: alarm.o $(ALARM_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(ALARM_OBJ) core/core.a -L core -lm
 
@@ -79,7 +76,7 @@ rfid_proxy.elf: rfid_proxy.o $(TRANSMITTER_OBJ)
 rfid_reader.elf: rfid_reader.o $(MODRFID_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(MODRFID_OBJ) core/core.a -L core -lm
 
-check_firmware.elf: check_firmware.o $(MODRFID_OBJ)
+rfid_firmware_check.elf: rfid_firmware_check.o $(MODRFID_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(MODRFID_OBJ) core/core.a -L core -lm
 
 empty.elf: empty.o
