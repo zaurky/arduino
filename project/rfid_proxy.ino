@@ -38,7 +38,9 @@ void loop() {
     if (res != 0) {
         Card card = Card(res);
         if (card.exists()) {
-            Serial.println("Tag was detected");
+            Serial.print("Tag ");
+            Serial.print(card.get_message(), HEX);
+            Serial.println(" was detected");
             tx.send(card.get_message());
         }
     }
