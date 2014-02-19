@@ -1,3 +1,4 @@
+#include <rfid_card.h>
 #include <rfid.h>
 
 
@@ -18,17 +19,17 @@ void setup() {
 
 
 void loop() {
-//    rfid->read(4);
-
     long res;
 
     res = rfid->get_serial();
     if (res != 0) {
         Serial.print("The serial nb of the tag is: ");
         Serial.println(res);
-        if (res == tag1) {
+        Card card = Card(res);
+        if (card.exists()) {
             Serial.println("This is a known tag");
         }
+        rfid->read(4);
     }
 
     delay(500);
