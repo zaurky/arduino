@@ -94,6 +94,8 @@ empty.elf: empty.o
 libraries/%.o: libraries/%.cpp
 	$(GPP) $(GPPOPT) $(CPPLIB) -o $@ $<
 
+console:
+	@(./utils/read_serial.py -D $(PORT))
 
 .PRECIOUS: %.hex
 .PHONY: clean
