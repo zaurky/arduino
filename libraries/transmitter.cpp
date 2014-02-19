@@ -3,12 +3,12 @@
 
 
 Transmitter::Transmitter(byte txPin) : _tx_id(txPin) {
-    mySwitch = new RCSwitch();
-    mySwitch->enableTransmit(_tx_id);
-    mySwitch->setRepeatTransmit(TXREPEAT);
+    _mySwitch = new RCSwitch();
+    _mySwitch->enableTransmit(_tx_id);
+    _mySwitch->setRepeatTransmit(TXREPEAT);
 }
 
 
 void Transmitter::send(int code) {
-    mySwitch->send(code, 24);
+    _mySwitch->send(code, 24);
 }
