@@ -4,7 +4,6 @@
 #include <MFRC522.h>
 #include <SPI.h>
 #include <blink2.h>
-#include <rfid_card.h>
 
 
 #define SAD 10
