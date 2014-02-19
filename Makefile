@@ -31,15 +31,12 @@ ALARM_SRC=libraries/alarm.cpp libraries/blink2.cpp libraries/buzzer.cpp \
 		  libraries/serialconsole.cpp libraries/utils.cpp
 ALARM_OBJ=$(ALARM_SRC:.cpp=.o)
 
-RFIDPROXY_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp \
-				libraries/SPI.cpp libraries/MFRC522.cpp libraries/blink2.cpp \
-				libraries/rfid.cpp libraries/rfid_card.cpp
-RFIDPROXY_OBJ=$(RFIDPROXY_SRC:.cpp=.o)
+TRANSMITTER_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp
+TRANSMITTER_OBJ=$(TRANSMITTER_SRC:.cpp=.o)
 
-SIMPLERFID_SRC=libraries/transmitter.cpp libraries/RCSwitch.cpp \
-			libraries/SPI.cpp libraries/MFRC522.cpp libraries/blink2.cpp \
-			libraries/rfid.cpp
-SIMPLERFID_OBJ=$(SIMPLERFID_SRC:.cpp=.o)
+RFID_SRC=libraries/SPI.cpp libraries/MFRC522.cpp libraries/blink2.cpp \
+		 libraries/rfid.cpp libraries/rfid_card.cpp
+RFID_OBJ=$(RFID_SRC:.cpp=.o)
 
 
 PROJECTS_HEX=$(PROJECTS:=.hex)
@@ -70,14 +67,14 @@ endif
 alarm.elf: alarm.o $(ALARM_OBJ)
 	$(GCC) $(GCCOPT) -o $@ $< $(ALARM_OBJ) core/core.a -L core -lm
 
-rfid_proxy.elf: rfid_proxy.o $(RFIDPROXY_OBJ)
-	$(GCC) $(GCCOPT) -o $@ $< $(RFIDPROXY_OBJ) core/core.a -L core -lm
+rfid_proxy.elf: rfid_proxy.o $(TRANSMITTER_OBJ) $(RFID_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(TRANSMITTER_OBJ) $(RFID_OBJ) core/core.a -L core -lm
 
-rfid_reader.elf: rfid_reader.o $(SIMPLERFID_OBJ)
-	$(GCC) $(GCCOPT) -o $@ $< $(SIMPLERFID_OBJ) core/core.a -L core -lm
+rfid_reader.elf: rfid_reader.o $(RFID_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(RFID_OBJ) core/core.a -L core -lm
 
-rfid_firmware_check.elf: rfid_firmware_check.o $(SIMPLERFID_OBJ)
-	$(GCC) $(GCCOPT) -o $@ $< $(SIMPLERFID_OBJ) core/core.a -L core -lm
+rfid_firmware_check.elf: rfid_firmware_check.o $(RFID_OBJ)
+	$(GCC) $(GCCOPT) -o $@ $< $(RFID_OBJ) core/core.a -L core -lm
 
 empty.elf: empty.o
 	$(GCC) $(GCCOPT) -o $@ $< core/core.a -L core -lm
