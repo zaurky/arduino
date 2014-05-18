@@ -18,6 +18,8 @@
 #define ringDelay 60000
 #define defaultLevel 3
 
+#define MAXLEVEL 3
+
 
 class Alarm {
     public:

@@ -108,7 +108,7 @@ void Alarm::deferred() {
 
 // is alarm armed ?
 boolean Alarm::armed() {
-    return arm_level() > 0;
+    return arm_level() > 0 && arm_level() <= MAXLEVEL;
 }
 
 
