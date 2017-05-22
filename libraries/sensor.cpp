@@ -65,34 +65,42 @@ int Sensor::get_uuid(long sensor_id) {
             return 3;
         case sensor_door_5:
             return 4;
-        case sensor_move_1:
+        case sensor_door_6:
             return 5;
-        case sensor_move_2:
+        case sensor_door_7:
             return 6;
-        case sensor_move_3:
+        case sensor_door_8:
             return 7;
-        case key_1_activate:
+        case sensor_door_9:
             return 8;
-        case key_1_deactivate:
+        case sensor_move_1:
             return 9;
-        case key_1_deferred:
+        case sensor_move_2:
             return 10;
-        case key_1_other:
+        case sensor_move_3:
             return 11;
-        case key_2_activate:
+        case key_1_activate:
             return 12;
-        case key_2_deactivate:
+        case key_1_deactivate:
             return 13;
-        case key_2_deferred:
+        case key_1_deferred:
             return 14;
-        case key_2_other:
+        case key_1_other:
             return 15;
-        case sensor_rfid0:
+        case key_2_activate:
             return 16;
-        case sensor_rfid1:
+        case key_2_deactivate:
             return 17;
-        case sensor_rfid2:
+        case key_2_deferred:
             return 18;
+        case key_2_other:
+            return 19;
+        case sensor_rfid0:
+            return 20;
+        case sensor_rfid1:
+            return 21;
+        case sensor_rfid2:
+            return 22;
     }
     return -1;
 }

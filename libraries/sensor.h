@@ -19,6 +19,10 @@ class Blink2;
 #define sensor_door_5 16762552
 
 #define sensor_door_6 14484816
+#define sensor_door_7 7609469
+#define sensor_door_8 3610448
+#define sensor_door_9 14484756
+// define sensor_door_7 7552336
 
 #define sensor_move_1 4273500
 #define sensor_move_2 5751900
@@ -77,16 +81,19 @@ class Sensor {
 
         // all the list that follow must have the same number of elements
         // as sensors uuid declared.
-        unsigned long _last_times[19] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        String _names[19] = {
-            "entree", "salon N.O", "salon N.E", "salon E.N", "salon E.S",
-            "salon", "escalier", "zone 3",
+        unsigned long _last_times[23] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        String _names[23] = {
+            "bureau", "chambre ami", "chambre val", "notre chambre", "salon",
+            "salle a manger", "garage", "cuisine", "entree",
+            "Z entree", "Z couloir", "Z salon",
             "key 1 On", "key 1 Off", "key 1 defered", "key 1 other",
             "key 2 On", "key 2 Off", "key 2 defered", "key 2 other",
             "RFID 1", "RFID 2", "RFID 3"
         };
-        short _sensor_type[19] = {
+        short _sensor_type[23] = {
             sensor_type_door, sensor_type_door, sensor_type_door,
+            sensor_type_door, sensor_type_door,
+            sensor_type_door, sensor_type_door,
             sensor_type_door, sensor_type_door,
             sensor_type_zone, sensor_type_zone, sensor_type_zone,
             sensor_type_key_on, sensor_type_key_off,
@@ -95,16 +102,20 @@ class Sensor {
             sensor_type_key_deferred, sensor_type_key_other,
             sensor_type_rfid_tag, sensor_type_rfid_tag, sensor_type_rfid_tag
         };
-        short _sensor_zone[19] = {
+        short _sensor_zone[23] = {
             sensor_zone_3, sensor_zone_3, sensor_zone_3,
+            sensor_zone_3, sensor_zone_3,
+            sensor_zone_3, sensor_zone_3,
             sensor_zone_3, sensor_zone_3,
             sensor_zone_2, sensor_zone_2, sensor_zone_1,
             sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone,
             sensor_nozone, sensor_nozone, sensor_nozone, sensor_nozone,
             sensor_nozone, sensor_nozone, sensor_nozone
         };
-        short _sensor_delay[19] = {
-            delay_defered, delay_immediate, delay_immediate,
+        short _sensor_delay[23] = {
+            delay_immediate, delay_immediate, delay_immediate,
+            delay_immediate, delay_immediate,
+            delay_immediate, delay_immediate,
             delay_immediate, delay_immediate,
             delay_immediate, delay_immediate, delay_immediate,
             delay_defered, delay_defered, delay_defered, delay_defered,
